@@ -1,0 +1,1347 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Java (Fundamentals & OOP)</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * {
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+        line-height: 1.7;
+        color: #2d3748;
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 40px 30px;
+        background-color: #ffffff;
+    }
+    
+    h1 {
+        color: #1a202c;
+        font-size: 2.5em;
+        font-weight: 700;
+        border-bottom: 4px solid #4299e1;
+        padding-bottom: 15px;
+        margin: 50px 0 30px 0;
+        page-break-after: avoid;
+        text-align: center;
+    }
+    
+    h1:first-child {
+        margin-top: 0;
+    }
+    
+    h2 {
+        color: #2d3748;
+        font-size: 1.8em;
+        font-weight: 600;
+        border-bottom: 2px solid #e53e3e;
+        padding-bottom: 10px;
+        margin: 40px 0 25px 0;
+        page-break-after: avoid;
+        background: linear-gradient(90deg, #f7fafc 0%, #edf2f7 100%);
+        padding: 15px 20px 10px 20px;
+        border-radius: 8px 8px 0 0;
+    }
+    
+    h3 {
+        color: #38a169;
+        font-size: 1.3em;
+        font-weight: 600;
+        margin: 30px 0 15px 0;
+        page-break-after: avoid;
+        padding-left: 10px;
+        border-left: 4px solid #38a169;
+    }
+    
+    p {
+        margin-bottom: 16px;
+        text-align: justify;
+    }
+    
+    code {
+        background-color: #f7fafc;
+        color: #e53e3e;
+        padding: 3px 6px;
+        border-radius: 4px;
+        font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+        font-size: 0.9em;
+        font-weight: 500;
+        border: 1px solid #e2e8f0;
+    }
+    
+    pre {
+        background-color: #1a202c;
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #4299e1;
+        overflow-x: auto;
+        margin: 20px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    pre code {
+        background: none;
+        color: inherit;
+        padding: 0;
+        border: none;
+        font-size: 0.95em;
+    }
+    
+    ul, ol {
+        margin: 16px 0 16px 25px;
+        padding-left: 0;
+    }
+    
+    li {
+        margin-bottom: 8px;
+        line-height: 1.6;
+    }
+    
+    ul li {
+        list-style-type: disc;
+    }
+    
+    ul li ul li {
+        list-style-type: circle;
+    }
+    
+    strong {
+        color: #1a202c;
+        font-weight: 600;
+    }
+    
+    em {
+        color: #4a5568;
+        font-style: italic;
+    }
+    
+    .toc {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 12px;
+        margin: 30px 0;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .toc h2 {
+        color: white;
+        border: none;
+        background: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+        font-size: 1.5em;
+    }
+    
+    .toc ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .toc li {
+        margin: 8px 0;
+    }
+    
+    .toc a {
+        color: #e2e8f0;
+        text-decoration: none;
+        padding: 5px 0;
+        display: block;
+        transition: color 0.3s ease;
+    }
+    
+    .toc a:hover {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+    
+    hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+        margin: 40px 0;
+    }
+    
+    .answer {
+        background-color: #f8f9fa;
+        padding: 15px 20px;
+        border-radius: 8px;
+        border-left: 4px solid #28a745;
+        margin: 10px 0 20px 0;
+        page-break-inside: avoid;
+    }
+    
+    .question {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 10px;
+        page-break-after: avoid;
+    }
+    
+    .question-block {
+        page-break-inside: avoid;
+        margin-bottom: 30px;
+    }
+    
+    /* A4 Page Styling */
+    @page {
+        size: A4;
+        margin: 2cm;
+    }
+    
+    body {
+        max-width: none;
+        width: 25cm;
+        min-height: 29.7cm;
+        margin: 0 auto;
+        padding: 2cm;
+        background: white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .page-break {
+        page-break-before: always;
+        margin-top: 0;
+        padding-top: 0;
+    }
+    
+    /* Print styles */
+    @media print {
+        body {
+            font-size: 10pt;
+            line-height: 1.4;
+            color: #000;
+            padding: 1.5cm;
+            box-shadow: none;
+            margin: 0;
+        }
+        
+        @page {
+            size: A4;
+            margin: 1.5cm;
+        }
+        
+        h1 {
+            font-size: 16pt;
+            color: #000;
+            page-break-after: avoid;
+        }
+        
+        h2 {
+            font-size: 14pt;
+            color: #000;
+            background: none !important;
+            padding: 10px 0 5px 0;
+            page-break-after: avoid;
+        }
+        
+        h3 {
+            font-size: 12pt;
+            color: #000;
+            page-break-after: avoid;
+        }
+        
+        .toc {
+            background: #f5f5f5 !important;
+            color: #000 !important;
+            box-shadow: none;
+            border: 1px solid #ddd;
+        }
+        
+        .toc h2 {
+            color: #000 !important;
+        }
+        
+        .toc a {
+            color: #000 !important;
+        }
+        
+        pre {
+            background: #f5f5f5 !important;
+            color: #000 !important;
+            border: 1px solid #ddd;
+            box-shadow: none;
+        }
+        
+        code {
+            background: #f0f0f0 !important;
+            color: #000 !important;
+            border: 1px solid #ccc;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        .avoid-break {
+            page-break-inside: avoid;
+        }
+        
+        .keep-together {
+            page-break-inside: avoid;
+        }
+        
+        .print-button {
+            display: none !important;
+        }
+        
+        a {
+            color: #000 !important;
+            text-decoration: none;
+        }
+        
+        .answer {
+            background: #f8f8f8 !important;
+            border: 1px solid #ddd;
+        }
+    }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()" style="
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #4299e1;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+        z-index: 1000;
+    ">Print / Save as PDF</button>
+
+    <h1>Core Java (Fundamentals & OOP)</h1>
+    <h2> and Answers</h2>
+
+    <h2 id="core-java">Core Java (Fundamentals & OOP)</h2>
+
+    <h3>1. What are the main features of Java?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p>Java is a general-purpose, class-based, object-oriented programming language designed to have minimal implementation dependencies.</p>
+            
+            <h4>Core Features</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Feature</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Description</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Object-Oriented</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Everything is modeled as objects with state and behavior</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Platform Independent</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">"Write Once, Run Anywhere" -- bytecode runs on any JVM</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Robust</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Strong type checking, exception handling, automatic garbage collection</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Secure</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">No explicit pointers, bytecode verification, Security Manager</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Multithreaded</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Built-in support for concurrent execution with Thread API</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>High Performance</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">JIT compiler converts bytecode to native code at runtime</td>
+                </tr>
+            </table>
+            
+            <h4>How Java Achieves Platform Independence</h4>
+            <pre><code>Source Code (.java)  ->  Compiler (javac)  ->  Bytecode (.class)  ->  JVM  ->  Native Code
+     |                        |                      |                  |
+  Human-readable         Platform-specific       Platform-neutral    Platform-specific
+                         but produces              runs on any        execution
+                         universal bytecode        JVM</code></pre>
+            
+            <h4>Key Differentiators</h4>
+            <ul>
+                <li><strong>Backward Compatibility:</strong> Code written decades ago still runs on modern JVMs</li>
+                <li><strong>Rich Ecosystem:</strong> Massive library support (Maven Central: 500K+ artifacts)</li>
+                <li><strong>Enterprise Ready:</strong> Powers 35+ billion devices worldwide</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>2. Explain the concept of Object-Oriented Programming in Java</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p><strong>Object-Oriented Programming (OOP)</strong> is a paradigm centered around objects that contain data (fields) and code (methods). Java is fundamentally built on OOP principles.</p>
+            
+            <h4>The Four Pillars of OOP</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Pillar</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Definition</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Java Example</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Encapsulation</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Bundle data + methods, hide internal state</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>private</code> fields + <code>public</code> getters/setters</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Inheritance</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Create new class from existing class</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>class Dog extends Animal</code></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Polymorphism</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">One interface, multiple implementations</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Method overriding, <code>Animal a = new Dog()</code></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Abstraction</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Hide complexity, show only essentials</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>abstract class</code>, <code>interface</code></td>
+                </tr>
+            </table>
+            
+            <h4>Code Examples</h4>
+            <pre><code>// Encapsulation: private data, controlled access
+public class BankAccount {
+    private double balance;  // Hidden state
+    
+    public void deposit(double amount) {
+        if (amount > 0) balance += amount;  // Validation
+    }
+}
+
+// Inheritance + Polymorphism
+public abstract class Shape {
+    public abstract double area();  // Abstraction
+}
+
+public class Circle extends Shape {
+    private double radius;
+    
+    @Override
+    public double area() {  // Polymorphism
+        return Math.PI * radius * radius;
+    }
+}</code></pre>
+            
+            <h4>Benefits of OOP</h4>
+            <ul>
+                <li><strong>Modularity:</strong> Classes can be written and maintained independently</li>
+                <li><strong>Reusability:</strong> Inheritance allows code reuse across classes</li>
+                <li><strong>Flexibility:</strong> Polymorphism enables interchangeable implementations</li>
+                <li><strong>Maintainability:</strong> Encapsulation isolates changes to specific classes</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>3. What is the difference between == and .equals() in Java?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p>These are two different ways to compare objects in Java:</p>
+            
+            <h4>Comparison</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Aspect</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;"><code>==</code> Operator</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;"><code>.equals()</code> Method</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Compares</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Memory addresses (references)</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Object content (logical equality)</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>For Primitives</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Compares values</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">[OK] Cannot be used</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>For Objects</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Same object in memory?</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Same content/value?</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Can Override</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">[OK] No</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Yes</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Null Safe</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Yes</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">[OK] Throws NPE if called on null</td>
+                </tr>
+            </table>
+            
+            <h4>Code Examples</h4>
+            <pre><code>// String comparison
+String s1 = new String("Hello");
+String s2 = new String("Hello");
+String s3 = "Hello";
+String s4 = "Hello";
+
+s1 == s2       // false -- different objects in heap
+s1.equals(s2)  // true  -- same content
+
+s3 == s4       // true  -- same object in String Pool (interned)
+s3.equals(s4)  // true  -- same content
+
+// Primitive comparison
+int a = 5, b = 5;
+a == b         // true  -- compares values directly</code></pre>
+            
+            <h4>Best Practices</h4>
+            <ul>
+                <li>Use <code>.equals()</code> for object content comparison</li>
+                <li>Use <code>==</code> for primitive types and null checks</li>
+                <li>Use <code>Objects.equals(a, b)</code> for null-safe comparison</li>
+                <li>For strings, prefer <code>"literal".equals(variable)</code> to avoid NPE</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>4. What are hashCode() and equals() methods used for?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p>These methods work together to determine object equality and enable efficient storage in hash-based collections.</p>
+            
+            <h4>The Contract</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Method</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Purpose</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Return Type</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>equals()</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Defines logical equality between objects</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>boolean</code></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>hashCode()</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Returns integer for hash-based collections</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>int</code></td>
+                </tr>
+            </table>
+            
+            <h4>Critical Rules</h4>
+            <pre><code>// THE CONTRACT:
+1. If a.equals(b) == true  ->  a.hashCode() == b.hashCode()  MUST
+2. If a.hashCode() == b.hashCode()  ->  a.equals(b) may be true or false
+3. If a.equals(b) == false  ->  hashCodes MAY differ (recommended for performance)
+
+// CONSEQUENCE:
+[!] Override BOTH or NEITHER -- never just one!</code></pre>
+            
+            <h4>How HashMap Uses Both</h4>
+            <pre><code>// When you do: map.put(key, value)
+1. Calculate hashCode() -> determines bucket index
+2. If bucket has entries -> use equals() to find exact match
+
+// Visual:
+HashMap Buckets:
+[0] -> null
+[1] -> [Entry("A")] -> [Entry("K")]  // Same hashCode, different objects
+[2] -> [Entry("B")]
+...</code></pre>
+            
+            <h4>Proper Implementation</h4>
+            <pre><code>public class Employee {
+    private Long id;
+    private String name;
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return Objects.equals(id, employee.id);  // Based on business key
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);  // Same fields as equals()
+    }
+}
+
+// Modern alternative: Use records (Java 14+)
+public record Employee(Long id, String name) {}  // Auto-generates both!</code></pre>
+        </div>
+    </div>
+
+    <h3>5. Explain method overloading vs method overriding</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p>Both are ways to achieve polymorphism but at different stages and with different purposes.</p>
+            
+            <h4>Comparison</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Aspect</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Overloading</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Overriding</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Definition</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Same name, different parameters</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Same signature in subclass</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Where</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Same class</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Parent-child classes</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Binding</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Compile-time (static)</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Runtime (dynamic)</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Return Type</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Can be different</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Must be same or covariant</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Access Modifier</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Can be different</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Cannot be more restrictive</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Annotation</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">None</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>@Override</code> recommended</td>
+                </tr>
+            </table>
+            
+            <h4>Code Examples</h4>
+            <pre><code>// OVERLOADING -- Same class, different parameters
+public class Calculator {
+    public int add(int a, int b) { return a + b; }
+    public int add(int a, int b, int c) { return a + b + c; }  // Different params
+    public double add(double a, double b) { return a + b; }    // Different types
+}
+
+// OVERRIDING -- Subclass provides specific implementation
+public class Animal {
+    public void speak() { System.out.println("Some sound"); }
+}
+
+public class Dog extends Animal {
+    @Override  // Always use this annotation!
+    public void speak() { System.out.println("Woof!"); }
+}
+
+// Runtime polymorphism
+Animal animal = new Dog();
+animal.speak();  // Output: "Woof!" -- Dog's version is called</code></pre>
+            
+            <h4>Key Points</h4>
+            <ul>
+                <li><strong>Overloading:</strong> Provides multiple ways to call the same method with different inputs</li>
+                <li><strong>Overriding:</strong> Enables runtime polymorphism -- actual object type determines method</li>
+                <li><code>static</code>, <code>final</code>, and <code>private</code> methods cannot be overridden</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>6. What is the difference between an abstract class and an interface?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p>Both provide abstraction but serve different purposes and have different capabilities.</p>
+            
+            <h4>Comparison (Java 17+)</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Feature</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Abstract Class</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Interface</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Instantiation</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">[OK] Cannot</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">[OK] Cannot</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Inheritance</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Single only (<code>extends</code>)</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Multiple (<code>implements</code>)</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Constructors</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Yes</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">[OK] No</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Instance Fields</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Any type</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">[OK] Only <code>public static final</code></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Concrete Methods</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Yes</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>default</code>, <code>static</code>, <code>private</code></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Access Modifiers</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Any</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Methods: <code>public</code> (or private)</td>
+                </tr>
+            </table>
+            
+            <h4>Code Examples</h4>
+            <pre><code>// ABSTRACT CLASS -- Shared state + behavior
+public abstract class Animal {
+    protected String name;  // Instance state
+    
+    public Animal(String name) { this.name = name; }  // Constructor
+    
+    public void eat() { System.out.println(name + " eats"); }  // Concrete
+    public abstract void speak();  // Abstract -- must implement
+}
+
+// INTERFACE -- Contract (capability)
+public interface Flyable {
+    int MAX_ALTITUDE = 10000;  // public static final
+    
+    void fly();  // Abstract
+    
+    default void land() {  // Default implementation (Java 8+)
+        System.out.println("Landing...");
+    }
+}
+
+// A class can extend ONE abstract class but implement MULTIPLE interfaces
+public class Bird extends Animal implements Flyable, Comparable&lt;Bird&gt; {
+    public Bird(String name) { super(name); }
+    
+    @Override public void speak() { System.out.println("Chirp!"); }
+    @Override public void fly() { System.out.println("Flying!"); }
+    @Override public int compareTo(Bird o) { return name.compareTo(o.name); }
+}</code></pre>
+            
+            <h4>When to Use</h4>
+            <ul>
+                <li><strong>Abstract Class:</strong> "IS-A" relationship with shared state/behavior (e.g., <code>Animal</code>)</li>
+                <li><strong>Interface:</strong> "CAN-DO" capability across unrelated classes (e.g., <code>Comparable</code>, <code>Serializable</code>)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+    
+    <h3>7. What are access modifiers in Java?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p><strong>Access modifiers</strong> control the visibility and accessibility of classes, methods, and fields from other parts of the code.</p>
+            
+            <h4>Access Levels</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Modifier</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">Same Class</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">Same Package</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">Subclass</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">World</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>private</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">Yes</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">No</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">No</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">No</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><em>(default)</em></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">Yes</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">Yes</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">No</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">No</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>protected</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">Yes</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">Yes</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">Yes</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">No</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>public</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">Yes</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">Yes</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">Yes</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; text-align: center;">Yes</td>
+                </tr>
+            </table>
+            
+            <h4>Visual Representation</h4>
+            <pre><code>+--------------------------------------------------+
+|                   WORLD (public)                 |
+|  +--------------------------------------------+  |
+|  |           SUBCLASS (protected)             |  |
+|  |  +--------------------------------------+  |  |
+|  |  |        PACKAGE (default)             |  |  |
+|  |  |  +--------------------------------+  |  |  |
+|  |  |  |        CLASS (private)         |  |  |  |
+|  |  |  +--------------------------------+  |  |  |
+|  |  +--------------------------------------+  |  |
+|  +--------------------------------------------+  |
++--------------------------------------------------+</code></pre>
+            
+            <h4>Code Example</h4>
+            <pre><code>public class BankAccount {
+    private double balance;           // Only this class
+    String accountType;               // Package-private (default)
+    protected String ownerName;       // Package + subclasses
+    public String accountNumber;      // Everyone
+    
+    private void updateBalance() { }  // Internal implementation
+    public double getBalance() {      // Public API
+        return balance;
+    }
+}</code></pre>
+            
+            <h4>Best Practices</h4>
+            <ul>
+                <li><strong>Fields:</strong> Always <code>private</code> -- expose via methods if needed</li>
+                <li><strong>Methods:</strong> Start with most restrictive, widen only when required</li>
+                <li><strong>Classes:</strong> <code>public</code> for APIs, package-private for internal implementations</li>
+                <li>Follow the principle of <strong>least privilege</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>8. What is the difference between final, finally, and finalize()?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p>These three keywords/concepts sound similar but serve completely different purposes:</p>
+            
+            <h4>Comparison</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Keyword</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Type</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Purpose</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Status</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>final</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Keyword</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Prevents modification/extension</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Use freely</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>finally</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Block</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Always executes after try/catch</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Use freely</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>finalize()</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Method</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Cleanup before GC</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">[!] Deprecated (Java 9+)</td>
+                </tr>
+            </table>
+            
+            <h4>Code Examples</h4>
+            <pre><code>// FINAL -- Prevents modification
+final int MAX_SIZE = 100;       // Constant variable (cannot reassign)
+final List&lt;String&gt; list = new ArrayList&lt;&gt;();  // Reference can't change
+list.add("item");               // But object content CAN change!
+
+final class ImmutableClass { }  // Cannot be extended
+class Parent {
+    final void method() { }     // Cannot be overridden
+}
+
+// FINALLY -- Cleanup block
+try {
+    connection = getConnection();
+    // risky operations
+} catch (SQLException e) {
+    log.error("DB error", e);
+} finally {
+    // ALWAYS runs -- even if exception thrown or return in try
+    if (connection != null) connection.close();
+}
+
+// Modern alternative: try-with-resources
+try (Connection conn = getConnection()) {
+    // Auto-closes conn, no finally needed
+}</code></pre>
+            
+            <h4>About finalize() -- [!] Deprecated</h4>
+            <pre><code>// DON'T USE -- Deprecated since Java 9, removed in Java 18
+@Override
+protected void finalize() throws Throwable {
+    // Unpredictable timing, may never run!
+}
+
+// INSTEAD USE:
+1. try-with-resources (AutoCloseable)
+2. Cleaner API (Java 9+)
+3. Explicit close() methods</code></pre>
+        </div>
+    </div>
+
+    <h3>9. Explain the concept of immutability in Java</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p>An <strong>immutable object</strong> is one whose state cannot be modified after creation. Once created, it remains constant for its lifetime.</p>
+            
+            <h4>Benefits of Immutability</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Benefit</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Why It Matters</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Thread Safety</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Can be shared between threads without synchronization</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Cache Friendly</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Safe to cache -- value never changes</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Hash Key Safe</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Perfect for HashMap/HashSet keys</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Security</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Prevents accidental or malicious modification</td>
+                </tr>
+            </table>
+            
+            <h4>How to Create Immutable Classes</h4>
+            <pre><code>public final class ImmutablePerson {  // 1. Make class final
+    private final String name;         // 2. Make fields private and final
+    private final List&lt;String&gt; hobbies;
+    
+    public ImmutablePerson(String name, List&lt;String&gt; hobbies) {
+        this.name = name;
+        this.hobbies = new ArrayList&lt;&gt;(hobbies);  // 3. Defensive copy
+    }
+    
+    // 4. No setters -- only getters
+    public String getName() { return name; }
+    
+    public List&lt;String&gt; getHobbies() {
+        return Collections.unmodifiableList(hobbies);  // 5. Return copy/view
+    }
+}
+
+// Modern alternative: Records (Java 14+)
+public record Person(String name, int age) { }  // Automatically immutable!</code></pre>
+            
+            <h4>Immutable Classes in Java</h4>
+            <ul>
+                <li><code>String</code> -- most famous example</li>
+                <li><code>Integer</code>, <code>Double</code>, all wrapper classes</li>
+                <li><code>LocalDate</code>, <code>LocalTime</code>, <code>Instant</code> (java.time)</li>
+                <li><code>BigInteger</code>, <code>BigDecimal</code></li>
+            </ul>
+            
+            <h4>Immutability Checklist</h4>
+            <ul>
+                <li>Class declared <code>final</code> (or all methods final)</li>
+                <li>All fields <code>private final</code></li>
+                <li>No setters</li>
+                <li>Defensive copies of mutable objects (in constructor and getters)</li>
+                <li>No methods that modify internal state</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>10. What is the difference between String, StringBuilder, and StringBuffer?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p>All three are used for text manipulation but differ in mutability and thread safety.</p>
+            
+            <h4>Comparison</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Feature</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">String</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">StringBuilder</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">StringBuffer</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Mutability</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">[OK] Immutable</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Mutable</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Mutable</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Thread Safe</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Yes (immutable)</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">[OK] No</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Yes (synchronized)</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Performance</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Slow for modifications</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Ys? Fastest</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Slower (sync overhead)</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Memory</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Creates new objects</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Modifies in place</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Modifies in place</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><strong>Use Case</strong></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Constants, keys, sharing</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Single-threaded building</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Multi-threaded building</td>
+                </tr>
+            </table>
+            
+            <h4>Memory Visualization</h4>
+            <pre><code>// String -- Creates new objects on each modification
+String s = "Hello";      // ["Hello"]
+s = s + " World";        // ["Hello"] + ["Hello World"] -- 2 objects!
+s = s + "!";             // ["Hello"] + ["Hello World"] + ["Hello World!"] -- 3 objects!
+
+// StringBuilder -- Modifies same buffer
+StringBuilder sb = new StringBuilder("Hello");  // ["Hello_____"] (capacity)
+sb.append(" World");     // ["Hello World_"] -- same buffer
+sb.append("!");          // ["Hello World!"] -- same buffer</code></pre>
+            
+            <h4>Code Examples</h4>
+            <pre><code>// [OK] BAD: String concatenation in loop (creates many objects)
+String result = "";
+for (int i = 0; i < 1000; i++) {
+    result += i;  // Creates 1000 String objects!
+}
+
+// GOOD: StringBuilder for building strings
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i < 1000; i++) {
+    sb.append(i);  // Same buffer, efficient
+}
+String result = sb.toString();
+
+// Modern alternatives
+String result = String.join(", ", list);  // For joining
+String text = STR."Hello \{name}";        // Template (Java 21+)</code></pre>
+            
+            <h4>When to Use</h4>
+            <ul>
+                <li><strong>String:</strong> Constants, method parameters, HashMap keys, shared data</li>
+                <li><strong>StringBuilder:</strong> Building strings in loops, single-threaded scenarios</li>
+                <li><strong>StringBuffer:</strong> Multi-threaded string building (rare -- usually better alternatives)</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>11. What is the <code>extends</code> keyword in Java?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p>The <code>extends</code> keyword is used to create inheritance relationships, allowing a class to inherit properties and methods from another class, or an interface to extend another interface.</p>
+            
+            <h4>Usage Scenarios</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Context</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Syntax</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Limit</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Class extends Class</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>class Dog extends Animal</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Single inheritance only</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Interface extends Interface</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>interface A extends B, C</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Multiple allowed</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Generic upper bound</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>&lt;T extends Number&gt;</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Type constraint</td>
+                </tr>
+            </table>
+            
+            <h4>Code Examples</h4>
+            <pre><code>// Class inheritance -- single parent only
+public class Animal {
+    protected String name;
+    
+    public void eat() {
+        System.out.println(name + " is eating");
+    }
+}
+
+public class Dog extends Animal {  // Dog IS-A Animal
+    public void bark() {
+        System.out.println(name + " says Woof!");
+    }
+}
+
+// Interface extending multiple interfaces
+public interface Swimmer { void swim(); }
+public interface Runner { void run(); }
+
+public interface Triathlete extends Swimmer, Runner {
+    void cycle();  // Now has swim(), run(), and cycle()
+}
+
+// Generic type bound
+public &lt;T extends Comparable&lt;T&gt;&gt; T findMax(List&lt;T&gt; list) {
+    return Collections.max(list);  // T must be Comparable
+}</code></pre>
+            
+            <h4>What Gets Inherited</h4>
+            <ul>
+                <li><code>public</code> and <code>protected</code> members</li>
+                <li>Package-private members (if same package)</li>
+                <li>[OK] <code>private</code> members (not accessible, but still exist)</li>
+                <li>[OK] Constructors (not inherited, but can be called via <code>super()</code>)</li>
+            </ul>
+            
+            <p><strong>Note:</strong> Java doesn't support multiple class inheritance to avoid the "diamond problem" -- use interfaces instead.</p>
+        </div>
+    </div>
+
+    <h3>12. What is the <code>implements</code> keyword in Java?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p>The <code>implements</code> keyword is used when a class commits to providing implementations for all abstract methods defined in one or more interfaces.</p>
+            
+            <h4>Key Characteristics</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Feature</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Description</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Multiple Interfaces</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">A class can implement many interfaces</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Contract Fulfillment</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Must implement ALL abstract methods (or be abstract)</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Default Methods</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Inherited automatically (can override)</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Combined with extends</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>extends</code> comes first, then <code>implements</code></td>
+                </tr>
+            </table>
+            
+            <h4>Code Examples</h4>
+            <pre><code>// Define interfaces (contracts)
+public interface Flyable {
+    void fly();
+    default void land() { System.out.println("Landing..."); }
+}
+
+public interface Swimmable {
+    void swim();
+}
+
+// Implement multiple interfaces
+public class Duck implements Flyable, Swimmable {
+    @Override
+    public void fly() {
+        System.out.println("Duck is flying");
+    }
+    
+    @Override
+    public void swim() {
+        System.out.println("Duck is swimming");
+    }
+    // land() is inherited from Flyable's default method
+}
+
+// Combine extends and implements
+public class Penguin extends Bird implements Swimmable {
+    @Override
+    public void swim() {
+        System.out.println("Penguin swims gracefully");
+    }
+}
+
+// Using interfaces for polymorphism
+Flyable flyer = new Duck();     // Interface reference
+flyer.fly();                     // "Duck is flying"
+
+List&lt;Swimmable&gt; swimmers = List.of(new Duck(), new Penguin());
+swimmers.forEach(Swimmable::swim);  // Both swim!</code></pre>
+            
+            <h4>extends vs implements</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Aspect</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;"><code>extends</code></th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;"><code>implements</code></th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Used with</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Classes, Interfaces</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Classes only</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Relationship</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">IS-A (inheritance)</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">CAN-DO (capability)</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Multiple</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">[OK] One class only</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Many interfaces</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <h3>13. What is the <code>super</code> keyword in Java?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p>The <code>super</code> keyword refers to the parent (superclass) of the current object. It's used to access parent class members that are hidden or overridden by the child class.</p>
+            
+            <h4>Three Uses of <code>super</code></h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Use</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Syntax</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Purpose</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Call parent constructor</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>super()</code> or <code>super(args)</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Initialize parent class</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Access parent method</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>super.methodName()</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Call overridden method</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Access parent field</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>super.fieldName</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Access hidden field</td>
+                </tr>
+            </table>
+            
+            <h4>Code Examples</h4>
+            <pre><code>public class Animal {
+    protected String name;
+    
+    public Animal(String name) {
+        this.name = name;
+        System.out.println("Animal constructor called");
+    }
+    
+    public void speak() {
+        System.out.println("Animal speaks");
+    }
+}
+
+public class Dog extends Animal {
+    private String breed;
+    
+    public Dog(String name, String breed) {
+        super(name);  // 1. MUST be first line -- calls Animal(name)
+        this.breed = breed;
+        System.out.println("Dog constructor called");
+    }
+    
+    @Override
+    public void speak() {
+        super.speak();  // 2. Call parent's speak() first
+        System.out.println(name + " says Woof!");  // Then add behavior
+    }
+}
+
+// Usage
+Dog dog = new Dog("Buddy", "Golden Retriever");
+// Output:
+// Animal constructor called
+// Dog constructor called
+
+dog.speak();
+// Output:
+// Animal speaks
+// Buddy says Woof!</code></pre>
+            
+            <h4>super vs this</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Keyword</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Refers To</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Common Use</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>this</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Current object</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Distinguish fields from params</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>super</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Parent class</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Access overridden members</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>this()</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">This class constructor</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Constructor chaining</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>super()</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Parent constructor</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Initialize parent</td>
+                </tr>
+            </table>
+            
+            <h4>Important Rules</h4>
+            <ul>
+                <li><code>super()</code> must be the <strong>first statement</strong> in a constructor</li>
+                <li>If you don't call <code>super()</code>, Java inserts <code>super()</code> (no-arg) automatically</li>
+                <li>Cannot use <code>super</code> in static context (no instance)</li>
+                <li><code>super</code> cannot skip generations -- only accesses immediate parent</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <hr>
+    <p style="text-align: center; color: #666; font-style: italic; margin-top: 40px;">
+        <em>Core Java (Fundamentals & OOP) and Answers</em>
+    </p>
+</body>
+</html>

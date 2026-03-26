@@ -1,0 +1,992 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * {
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+        line-height: 1.7;
+        color: #2d3748;
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 40px 30px;
+        background-color: #ffffff;
+    }
+    
+    h1 {
+        color: #1a202c;
+        font-size: 2.5em;
+        font-weight: 700;
+        border-bottom: 4px solid #4299e1;
+        padding-bottom: 15px;
+        margin: 50px 0 30px 0;
+        page-break-after: avoid;
+        text-align: center;
+    }
+    
+    h1:first-child {
+        margin-top: 0;
+    }
+    
+    h2 {
+        color: #2d3748;
+        font-size: 1.8em;
+        font-weight: 600;
+        border-bottom: 2px solid #e53e3e;
+        padding-bottom: 10px;
+        margin: 40px 0 25px 0;
+        page-break-after: avoid;
+        background: linear-gradient(90deg, #f7fafc 0%, #edf2f7 100%);
+        padding: 15px 20px 10px 20px;
+        border-radius: 8px 8px 0 0;
+    }
+    
+    h3 {
+        color: #38a169;
+        font-size: 1.3em;
+        font-weight: 600;
+        margin: 30px 0 15px 0;
+        page-break-after: avoid;
+        padding-left: 10px;
+        border-left: 4px solid #38a169;
+    }
+    
+    p {
+        margin-bottom: 16px;
+        text-align: justify;
+    }
+    
+    code {
+        background-color: #f7fafc;
+        color: #e53e3e;
+        padding: 3px 6px;
+        border-radius: 4px;
+        font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+        font-size: 0.9em;
+        font-weight: 500;
+        border: 1px solid #e2e8f0;
+    }
+    
+    pre {
+        background-color: #1a202c;
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #4299e1;
+        overflow-x: auto;
+        margin: 20px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    pre code {
+        background: none;
+        color: inherit;
+        padding: 0;
+        border: none;
+        font-size: 0.95em;
+    }
+    
+    ul, ol {
+        margin: 16px 0 16px 25px;
+        padding-left: 0;
+    }
+    
+    li {
+        margin-bottom: 8px;
+        line-height: 1.6;
+    }
+    
+    ul li {
+        list-style-type: disc;
+    }
+    
+    ul li ul li {
+        list-style-type: circle;
+    }
+    
+    strong {
+        color: #1a202c;
+        font-weight: 600;
+    }
+    
+    em {
+        color: #4a5568;
+        font-style: italic;
+    }
+    
+    .toc {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 12px;
+        margin: 30px 0;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .toc h2 {
+        color: white;
+        border: none;
+        background: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+        font-size: 1.5em;
+    }
+    
+    .toc ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .toc li {
+        margin: 8px 0;
+    }
+    
+    .toc a {
+        color: #e2e8f0;
+        text-decoration: none;
+        padding: 5px 0;
+        display: block;
+        transition: color 0.3s ease;
+    }
+    
+    .toc a:hover {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+    
+    hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+        margin: 40px 0;
+    }
+    
+    .answer {
+        background-color: #f8f9fa;
+        padding: 15px 20px;
+        border-radius: 8px;
+        border-left: 4px solid #28a745;
+        margin: 10px 0 20px 0;
+        page-break-inside: avoid;
+    }
+    
+    .question {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 10px;
+        page-break-after: avoid;
+    }
+    
+    .question-block {
+        page-break-inside: avoid;
+        margin-bottom: 30px;
+    }
+    
+    /* A4 Page Styling */
+    @page {
+        size: A4;
+        margin: 2cm;
+    }
+    
+    body {
+        max-width: none;
+        width: 25cm;
+        min-height: 29.7cm;
+        margin: 0 auto;
+        padding: 2cm;
+        background: white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .page-break {
+        page-break-before: always;
+        margin-top: 0;
+        padding-top: 0;
+    }
+    
+    /* Print styles */
+    @media print {
+        body {
+            font-size: 10pt;
+            line-height: 1.4;
+            color: #000;
+            padding: 1.5cm;
+            box-shadow: none;
+            margin: 0;
+        }
+        
+        @page {
+            size: A4;
+            margin: 1.5cm;
+        }
+        
+        h1 {
+            font-size: 16pt;
+            color: #000;
+            page-break-after: avoid;
+        }
+        
+        h2 {
+            font-size: 14pt;
+            color: #000;
+            background: none !important;
+            padding: 10px 0 5px 0;
+            page-break-after: avoid;
+        }
+        
+        h3 {
+            font-size: 12pt;
+            color: #000;
+            page-break-after: avoid;
+        }
+        
+        .toc {
+            background: #f5f5f5 !important;
+            color: #000 !important;
+            box-shadow: none;
+            border: 1px solid #ddd;
+        }
+        
+        .toc h2 {
+            color: #000 !important;
+        }
+        
+        .toc a {
+            color: #000 !important;
+        }
+        
+        pre {
+            background: #f5f5f5 !important;
+            color: #000 !important;
+            border: 1px solid #ddd;
+            box-shadow: none;
+        }
+        
+        code {
+            background: #f0f0f0 !important;
+            color: #000 !important;
+            border: 1px solid #ccc;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        .avoid-break {
+            page-break-inside: avoid;
+        }
+        
+        .keep-together {
+            page-break-inside: avoid;
+        }
+        
+        .print-button {
+            display: none !important;
+        }
+        
+        a {
+            color: #000 !important;
+            text-decoration: none;
+        }
+        
+        .answer {
+            background: #f8f8f8 !important;
+            border: 1px solid #ddd;
+        }
+    }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()" style="
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #4299e1;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+        z-index: 1000;
+    ">Print / Save as PDF</button>
+
+    <h1>Spring Boot</h1>
+    <h2>Interview Questions and Answers</h2>
+
+    <h2 id="spring-boot">Spring Boot</h2>
+
+    <h3>1. What is Spring Boot, and how does it differ from Spring Framework?</h3>
+    <div class="answer">
+        <strong>Answer:</strong><br><br>
+        <p><strong>Spring Boot</strong> is an opinionated framework built on top of Spring Framework that dramatically simplifies application development and deployment.</p>
+        
+        <h4>Key Features of Spring Boot</h4>
+        <ul>
+            <li><strong>Auto-configuration:</strong> Automatically configures beans based on classpath dependencies and existing beans</li>
+            <li><strong>Embedded Servers:</strong> Includes Tomcat, Jetty, or Undertow — no need to deploy WAR files</li>
+            <li><strong>Starter Dependencies:</strong> Pre-configured dependency bundles for common use cases</li>
+            <li><strong>Production-Ready Features:</strong> Health checks, metrics, and externalized configuration out of the box</li>
+            <li><strong>No XML Configuration:</strong> Java-based configuration with annotations</li>
+        </ul>
+        
+        <h4>Spring Framework vs Spring Boot</h4>
+        <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+            <tr style="background-color: #f7fafc;">
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Aspect</th>
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Spring Framework</th>
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Spring Boot</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Configuration</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Manual XML or Java config</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Auto-configuration</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Server</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">External deployment required</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Embedded server included</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Dependencies</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Manual version management</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Managed via starters</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Setup Time</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Hours to days</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Minutes</td>
+            </tr>
+        </table>
+        
+        <p><strong>Bottom Line:</strong> Spring Framework provides the core modules (IoC, AOP, MVC, Data), while Spring Boot provides the tooling to use them with minimal configuration.</p>
+    </div>
+
+    <h3>2. What are Spring Boot starters?</h3>
+    <div class="answer">
+        <strong>Answer:</strong><br><br>
+        <p><strong>Spring Boot Starters</strong> are pre-packaged dependency bundles that provide all the libraries needed for a specific functionality with compatible versions.</p>
+        
+        <h4>How Starters Work</h4>
+        <p>Instead of manually adding multiple dependencies with version conflicts, you add one starter and get everything needed:</p>
+        <pre><code>&lt;!-- One starter replaces many individual dependencies --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+        
+        <h4>Common Starters</h4>
+        <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+            <tr style="background-color: #f7fafc;">
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Starter</th>
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Purpose</th>
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Includes</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>spring-boot-starter-web</code></td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">REST APIs & Web MVC</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Spring MVC, Jackson, Tomcat</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>spring-boot-starter-data-jpa</code></td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Database access</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Hibernate, Spring Data JPA, HikariCP</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>spring-boot-starter-security</code></td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Authentication & Authorization</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Spring Security</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>spring-boot-starter-test</code></td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Testing</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">JUnit 5, Mockito, AssertJ</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>spring-boot-starter-actuator</code></td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Production monitoring</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Health checks, metrics, endpoints</td>
+            </tr>
+        </table>
+        
+        <h4>Benefits</h4>
+        <ul>
+            <li><strong>No version conflicts:</strong> All dependencies are tested together</li>
+            <li><strong>Faster setup:</strong> One dependency instead of many</li>
+            <li><strong>Auto-configuration:</strong> Starters trigger automatic bean configuration</li>
+        </ul>
+    </div>
+
+    <h3>3. What is Spring Boot auto-configuration?</h3>
+    <div class="answer">
+        <strong>Answer:</strong><br><br>
+        <p><strong>Auto-configuration</strong> is Spring Boot's mechanism to automatically configure beans based on the classpath, existing beans, and properties — eliminating most manual configuration.</p>
+        
+        <h4>How It Works</h4>
+        <ol>
+            <li><strong>Classpath Scanning:</strong> Spring Boot detects libraries on the classpath (e.g., H2 database, Jackson)</li>
+            <li><strong>Conditional Evaluation:</strong> Uses <code>@Conditional</code> annotations to decide what to configure</li>
+            <li><strong>Bean Registration:</strong> Automatically creates and configures required beans</li>
+        </ol>
+        
+        <h4>Example: DataSource Auto-Configuration</h4>
+        <pre><code>// Just add H2 dependency + these properties:
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driver-class-name=org.h2.Driver
+
+// Spring Boot automatically:
+// - Creates DataSource bean
+// - Configures HikariCP connection pool
+// - Sets up JdbcTemplate (if on classpath)</code></pre>
+        
+        <h4>Key Conditional Annotations</h4>
+        <ul>
+            <li><code>@ConditionalOnClass</code> — Configure only if a class exists on classpath</li>
+            <li><code>@ConditionalOnMissingBean</code> — Configure only if no user-defined bean exists</li>
+            <li><code>@ConditionalOnProperty</code> — Configure based on property value</li>
+        </ul>
+        
+        <h4>Customization Options</h4>
+        <ul>
+            <li><strong>Override:</strong> Define your own bean to replace auto-configured one</li>
+            <li><strong>Exclude:</strong> Use <code>@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)</code></li>
+            <li><strong>Debug:</strong> Set <code>debug=true</code> in properties to see auto-configuration report</li>
+        </ul>
+        
+        <p><strong>Key Point:</strong> Auto-configuration is "opinionated but flexible" — sensible defaults that you can always override.</p>
+    </div>
+
+    <h3>4. How do you create a REST API using Spring Boot?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p>Creating a REST API in Spring Boot follows a layered architecture pattern:</p>
+            
+            <h4>Step 1: Add Dependency</h4>
+            <pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+            
+            <h4>Step 2: Create REST Controller</h4>
+            <pre><code>@RestController
+@RequestMapping("/api/users")
+public class UserController {
+    
+    private final UserService userService;
+    
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+    
+    @GetMapping
+    public List&lt;User&gt; getAllUsers() {
+        return userService.findAll();
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity&lt;User&gt; getUser(@PathVariable Long id) {
+        return userService.findById(id)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+    }
+    
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public User createUser(@Valid @RequestBody UserDTO dto) {
+        return userService.create(dto);
+    }
+    
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO dto) {
+        return userService.update(id, dto);
+    }
+    
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable Long id) {
+        userService.delete(id);
+    }
+}</code></pre>
+            
+            <h4>Key Annotations</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background-color: #f7fafc;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Annotation</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Purpose</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>@RestController</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Combines @Controller + @ResponseBody</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>@RequestMapping</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Base path for all endpoints</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>@GetMapping, @PostMapping...</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">HTTP method shortcuts</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>@PathVariable</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Extract value from URL path</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>@RequestBody</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Deserialize JSON to object</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>@Valid</code></td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">Trigger bean validation</td>
+                </tr>
+            </table>
+            
+            <h4>Step 3: Run Application</h4>
+            <pre><code>@SpringBootApplication
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+}</code></pre>
+            
+            <p><strong>Result:</strong> API available at <code>http://localhost:8080/api/users</code> with automatic JSON serialization.</p>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+    
+    <h3>5. What is the role of application.properties or application.yml?</h3>
+    <div class="answer">
+        <strong>Answer:</strong><br><br>
+        <p><strong>Configuration files</strong> externalize application settings, making apps configurable without code changes.</p>
+        
+        <h4>Properties vs YAML Format</h4>
+        <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+            <tr style="background-color: #f7fafc;">
+                <th style="border: 1px solid #e2e8f0; padding: 12px; text-align: left; width: 50%;">&#128196; application.properties</th>
+                <th style="border: 1px solid #e2e8f0; padding: 12px; text-align: left; width: 50%;">&#128203; application.yml</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 0; vertical-align: top;">
+                    <pre style="margin: 0; padding: 12px; background: #1a202c; color: #e2e8f0; font-size: 0.85em; line-height: 1.5; border-radius: 0;"><code>server.port=8081
+spring.datasource.url=jdbc:mysql://localhost/db
+spring.datasource.username=root
+spring.datasource.password=${DB_PASSWORD}</code></pre>
+                </td>
+                <td style="border: 1px solid #e2e8f0; padding: 0; vertical-align: top;">
+                    <pre style="margin: 0; padding: 12px; background: #1a202c; color: #e2e8f0; font-size: 0.85em; line-height: 1.5; border-radius: 0;"><code>server:
+  port: 8081
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/db
+    username: root
+    password: ${DB_PASSWORD}</code></pre>
+                </td>
+            </tr>
+            <tr style="background-color: #f8f9fa;">
+                <td style="border: 1px solid #e2e8f0; padding: 10px; font-size: 0.9em; color: #4a5568;">
+                    Simple key=value pairs<br>
+                    Easy to read for flat configs<br>
+                    s️ Repetitive prefixes
+                </td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px; font-size: 0.9em; color: #4a5568;">
+                    Hierarchical structure<br>
+                    Less repetition<br>
+                    Supports lists natively
+                </td>
+            </tr>
+        </table>
+        
+        <h4>Common Configuration Categories</h4>
+        <ul>
+            <li><strong>Server:</strong> <code>server.port</code>, <code>server.servlet.context-path</code></li>
+            <li><strong>Database:</strong> <code>spring.datasource.*</code>, <code>spring.jpa.*</code></li>
+            <li><strong>Logging:</strong> <code>logging.level.*</code>, <code>logging.file.name</code></li>
+            <li><strong>Security:</strong> <code>spring.security.*</code></li>
+            <li><strong>Custom:</strong> Your own properties accessible via <code>@Value</code> or <code>@ConfigurationProperties</code></li>
+        </ul>
+        
+        <h4>Profile-Specific Configuration</h4>
+        <pre><code># application-dev.yml (activated with spring.profiles.active=dev)
+spring:
+  datasource:
+    url: jdbc:h2:mem:devdb
+
+# application-prod.yml
+spring:
+  datasource:
+    url: jdbc:mysql://prod-server/db</code></pre>
+        
+        <h4>Property Resolution Order (Highest Priority First)</h4>
+        <ol>
+            <li>Command-line arguments (<code>--server.port=9000</code>)</li>
+            <li>Environment variables (<code>SERVER_PORT=9000</code>)</li>
+            <li><code>application-{profile}.yml</code> outside JAR</li>
+            <li><code>application-{profile}.yml</code> inside JAR</li>
+            <li><code>application.yml</code> outside JAR</li>
+            <li><code>application.yml</code> inside JAR</li>
+        </ol>
+        
+        <h4>Accessing Properties in Code</h4>
+        <pre><code>// Option 1: @Value annotation
+@Value("${app.feature.enabled:false}")
+private boolean featureEnabled;
+
+// Option 2: @ConfigurationProperties (recommended for groups)
+@ConfigurationProperties(prefix = "app.mail")
+public record MailProperties(String host, int port, String from) {}</code></pre>
+    </div>
+
+    <h3>6. What is the difference between @SpringBootApplication and @EnableAutoConfiguration?</h3>
+    <div class="answer">
+        <strong>Answer:</strong><br><br>
+        <p><code>@SpringBootApplication</code> is a convenience annotation that combines three annotations into one:</p>
+        
+        <h4>What @SpringBootApplication Includes</h4>
+        <pre><code>@SpringBootApplication
+// Is equivalent to:
+@SpringBootConfiguration  // Marks this as a configuration class
+@EnableAutoConfiguration  // Enables auto-configuration
+@ComponentScan            // Scans for @Component classes in current package & below</code></pre>
+        
+        <h4>Comparison</h4>
+        <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+            <tr style="background-color: #f7fafc;">
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Annotation</th>
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">What It Does</th>
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">When to Use</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>@SpringBootApplication</code></td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Configuration + Auto-config + Component scanning</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">99% of applications (standard choice)</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>@EnableAutoConfiguration</code></td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Only enables auto-configuration</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">When you need fine-grained control</td>
+            </tr>
+        </table>
+        
+        <h4>Customization Examples</h4>
+        <pre><code>// Exclude specific auto-configurations
+@SpringBootApplication(exclude = {
+    DataSourceAutoConfiguration.class,
+    SecurityAutoConfiguration.class
+})
+public class Application { }
+
+// Custom component scan base packages
+@SpringBootApplication(scanBasePackages = "com.example")
+public class Application { }</code></pre>
+        
+        <p><strong>Best Practice:</strong> Always use <code>@SpringBootApplication</code> on your main class. Only use individual annotations when you need explicit control over specific features.</p>
+    </div>
+
+    <h3>7. How do you secure a Spring Boot application?</h3>
+    <div class="answer">
+        <strong>Answer:</strong><br><br>
+        <p>Spring Security provides comprehensive protection through multiple layers:</p>
+        
+        <h4>Step 1: Add Dependency</h4>
+        <pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+        <p><em>Just adding this dependency secures ALL endpoints with basic auth (random password in logs).</em></p>
+        
+        <h4>Step 2: Configure Security (Spring Security 6.x)</h4>
+        <pre><code>@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+            .csrf(csrf -> csrf.disable()) // Disable for REST APIs
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/public/**").permitAll()
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+            )
+            .sessionManagement(session -> 
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .httpBasic(Customizer.withDefaults())
+            .build();
+    }
+    
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}</code></pre>
+        
+        <h4>Authentication Options</h4>
+        <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+            <tr style="background-color: #f7fafc;">
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Method</th>
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Use Case</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Form Login</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Traditional web apps with sessions</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">HTTP Basic</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Simple APIs, testing</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">JWT Tokens</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Stateless REST APIs, microservices</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">OAuth2/OIDC</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Social login, enterprise SSO</td>
+            </tr>
+        </table>
+        
+        <h4>Method-Level Security</h4>
+        <pre><code>@EnableMethodSecurity
+@Service
+public class UserService {
+    
+    @PreAuthorize("hasRole('ADMIN')")
+    public void deleteUser(Long id) { ... }
+    
+    @PreAuthorize("#userId == authentication.principal.id")
+    public User getUser(Long userId) { ... }
+}</code></pre>
+        
+        <h4>Security Checklist</h4>
+        <ul>
+            <li>Use BCrypt for password hashing</li>
+            <li>Enable HTTPS in production</li>
+            <li>Secure actuator endpoints</li>
+            <li>Store secrets in environment variables or vault</li>
+            <li>Implement rate limiting</li>
+            <li>Validate all inputs</li>
+        </ul>
+    </div>
+
+    <h3>8. What is Spring Boot Actuator, and why is it useful?</h3>
+    <div class="answer">
+        <strong>Answer:</strong><br><br>
+        <p><strong>Spring Boot Actuator</strong> provides production-ready monitoring and management features through HTTP endpoints or JMX.</p>
+        
+        <h4>Add Dependency</h4>
+        <pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+        
+        <h4>Key Endpoints</h4>
+        <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+            <tr style="background-color: #f7fafc;">
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Endpoint</th>
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">URL</th>
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Purpose</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>/health</code></td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">/actuator/health</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Application health status (UP/DOWN)</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>/metrics</code></td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">/actuator/metrics</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">JVM, HTTP, custom metrics</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>/info</code></td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">/actuator/info</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Build info, Git commit, custom info</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>/env</code></td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">/actuator/env</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Environment properties</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>/loggers</code></td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">/actuator/loggers</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">View/change log levels at runtime</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>/threaddump</code></td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">/actuator/threaddump</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Thread dump for debugging</td>
+            </tr>
+        </table>
+        
+        <h4>Configuration</h4>
+        <pre><code># application.yml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, info, prometheus
+  endpoint:
+    health:
+      show-details: when_authorized  # never, always, when_authorized
+  metrics:
+    export:
+      prometheus:
+        enabled: true  # For Prometheus/Grafana integration</code></pre>
+        
+        <h4>Custom Health Indicator</h4>
+        <pre><code>@Component
+public class DatabaseHealthIndicator implements HealthIndicator {
+    
+    @Override
+    public Health health() {
+        if (isDatabaseReachable()) {
+            return Health.up()
+                .withDetail("database", "PostgreSQL")
+                .withDetail("status", "Connected")
+                .build();
+        }
+        return Health.down()
+            .withDetail("error", "Cannot connect to database")
+            .build();
+    }
+}</code></pre>
+        
+        <h4>Use Cases</h4>
+        <ul>
+            <li><strong>Kubernetes:</strong> Liveness/readiness probes via <code>/health/liveness</code> and <code>/health/readiness</code></li>
+            <li><strong>Monitoring:</strong> Export metrics to Prometheus, Datadog, New Relic</li>
+            <li><strong>Debugging:</strong> View beans, environment, thread dumps</li>
+            <li><strong>Operations:</strong> Change log levels without restart</li>
+        </ul>
+        
+        <p><strong>Security Note:</strong> Always secure sensitive endpoints in production — expose only <code>health</code> and <code>info</code> publicly.</p>
+    </div>
+
+    <h3>9. How do you handle exceptions in Spring Boot REST APIs?</h3>
+    <div class="answer">
+        <strong>Answer:</strong><br><br>
+        <p>Spring Boot provides multiple ways to handle exceptions, with <code>@RestControllerAdvice</code> being the recommended approach for REST APIs.</p>
+        
+        <h4>1. Global Exception Handler (Recommended)</h4>
+        <pre><code>@RestControllerAdvice
+public class GlobalExceptionHandler {
+    
+    // Handle specific exception
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleNotFound(ResourceNotFoundException ex) {
+        return new ErrorResponse(
+            HttpStatus.NOT_FOUND.value(),
+            "NOT_FOUND",
+            ex.getMessage(),
+            LocalDateTime.now()
+        );
+    }
+    
+    // Handle validation errors
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleValidation(MethodArgumentNotValidException ex) {
+        List&lt;String&gt; errors = ex.getBindingResult()
+            .getFieldErrors()
+            .stream()
+            .map(e -> e.getField() + ": " + e.getDefaultMessage())
+            .toList();
+        return new ErrorResponse(400, "VALIDATION_ERROR", errors.toString(), LocalDateTime.now());
+    }
+    
+    // Catch-all for unexpected errors
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleAll(Exception ex) {
+        log.error("Unexpected error", ex);
+        return new ErrorResponse(500, "INTERNAL_ERROR", "An unexpected error occurred", LocalDateTime.now());
+    }
+}</code></pre>
+        
+        <h4>2. Error Response DTO (RFC 7807 Problem Details)</h4>
+        <pre><code>public record ErrorResponse(
+    int status,
+    String code,
+    String message,
+    LocalDateTime timestamp,
+    String path,           // Optional: request path
+    List&lt;String&gt; details   // Optional: validation errors
+) {
+    public ErrorResponse(int status, String code, String message, LocalDateTime timestamp) {
+        this(status, code, message, timestamp, null, null);
+    }
+}</code></pre>
+        
+        <h4>3. Custom Business Exceptions</h4>
+        <pre><code>@ResponseStatus(HttpStatus.NOT_FOUND)
+public class ResourceNotFoundException extends RuntimeException {
+    public ResourceNotFoundException(String resource, Long id) {
+        super(resource + " not found with id: " + id);
+    }
+}
+
+// Usage in service
+public User findById(Long id) {
+    return userRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("User", id));
+}</code></pre>
+        
+        <h4>Exception Handling Approaches Compared</h4>
+        <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+            <tr style="background-color: #f7fafc;">
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Approach</th>
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Scope</th>
+                <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Best For</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>@RestControllerAdvice</code></td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Global</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Centralized handling (recommended)</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>@ExceptionHandler</code> in controller</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Single controller</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Controller-specific errors</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>@ResponseStatus</code> on exception</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Per exception class</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Simple status mapping</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;"><code>ResponseEntityExceptionHandler</code></td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Extend for Spring MVC exceptions</td>
+                <td style="border: 1px solid #e2e8f0; padding: 10px;">Customize built-in exception handling</td>
+            </tr>
+        </table>
+        
+        <h4>Best Practices</h4>
+        <ul>
+            <li>Use consistent error response format across all APIs</li>
+            <li>Log full stack traces server-side, return safe messages to clients</li>
+            <li>Use appropriate HTTP status codes (4xx for client errors, 5xx for server errors)</li>
+            <li>Include correlation IDs for request tracing</li>
+            <li>Never expose internal details (stack traces, SQL) in production</li>
+        </ul>
+    </div>
+
+    <div class="page-break"></div>
+
+    <hr>
+    <p style="text-align: center; color: #666; font-style: italic; margin-top: 40px;">
+        <em>Spring Boot and Answers</em>
+    </p>
+</body>
+</html>

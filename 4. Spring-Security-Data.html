@@ -1,0 +1,1733 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Security & Data</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * {
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+        line-height: 1.7;
+        color: #2d3748;
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 40px 30px;
+        background-color: #ffffff;
+    }
+    
+    h1 {
+        color: #1a202c;
+        font-size: 2.5em;
+        font-weight: 700;
+        border-bottom: 4px solid #4299e1;
+        padding-bottom: 15px;
+        margin: 50px 0 30px 0;
+        page-break-after: avoid;
+        text-align: center;
+    }
+    
+    h1:first-child {
+        margin-top: 0;
+    }
+    
+    h2 {
+        color: #2d3748;
+        font-size: 1.8em;
+        font-weight: 600;
+        border-bottom: 2px solid #e53e3e;
+        padding-bottom: 10px;
+        margin: 40px 0 25px 0;
+        page-break-after: avoid;
+        background: linear-gradient(90deg, #f7fafc 0%, #edf2f7 100%);
+        padding: 15px 20px 10px 20px;
+        border-radius: 8px 8px 0 0;
+    }
+    
+    h3 {
+        color: #38a169;
+        font-size: 1.3em;
+        font-weight: 600;
+        margin: 30px 0 15px 0;
+        page-break-after: avoid;
+        padding-left: 10px;
+        border-left: 4px solid #38a169;
+    }
+    
+    p {
+        margin-bottom: 16px;
+        text-align: justify;
+    }
+    
+    code {
+        background-color: #f7fafc;
+        color: #e53e3e;
+        padding: 3px 6px;
+        border-radius: 4px;
+        font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+        font-size: 0.9em;
+        font-weight: 500;
+        border: 1px solid #e2e8f0;
+    }
+    
+    pre {
+        background-color: #1a202c;
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #4299e1;
+        overflow-x: auto;
+        margin: 20px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    pre code {
+        background: none;
+        color: inherit;
+        padding: 0;
+        border: none;
+        font-size: 0.95em;
+    }
+    
+    ul, ol {
+        margin: 16px 0 16px 25px;
+        padding-left: 0;
+    }
+    
+    li {
+        margin-bottom: 8px;
+        line-height: 1.6;
+    }
+    
+    ul li {
+        list-style-type: disc;
+    }
+    
+    ul li ul li {
+        list-style-type: circle;
+    }
+    
+    strong {
+        color: #1a202c;
+        font-weight: 600;
+    }
+    
+    em {
+        color: #4a5568;
+        font-style: italic;
+    }
+    
+    .toc {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 12px;
+        margin: 30px 0;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .toc h2 {
+        color: white;
+        border: none;
+        background: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+        font-size: 1.5em;
+    }
+    
+    .toc ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .toc li {
+        margin: 8px 0;
+    }
+    
+    .toc a {
+        color: #e2e8f0;
+        text-decoration: none;
+        padding: 5px 0;
+        display: block;
+        transition: color 0.3s ease;
+    }
+    
+    .toc a:hover {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+    
+    hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+        margin: 40px 0;
+    }
+    
+    .answer {
+        background-color: #f8f9fa;
+        padding: 15px 20px;
+        border-radius: 8px;
+        border-left: 4px solid #28a745;
+        margin: 10px 0 20px 0;
+        page-break-inside: avoid;
+    }
+    
+    .question {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 10px;
+        page-break-after: avoid;
+    }
+    
+    .question-block {
+        page-break-inside: avoid;
+        margin-bottom: 30px;
+    }
+    
+    /* A4 Page Styling */
+    @page {
+        size: A4;
+        margin: 2cm;
+    }
+    
+    body {
+        max-width: none;
+        width: 25cm;
+        min-height: 29.7cm;
+        margin: 0 auto;
+        padding: 2cm;
+        background: white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .page-break {
+        page-break-before: always;
+        margin-top: 0;
+        padding-top: 0;
+    }
+    
+    /* Print styles */
+    @media print {
+        body {
+            font-size: 10pt;
+            line-height: 1.4;
+            color: #000;
+            padding: 1.5cm;
+            box-shadow: none;
+            margin: 0;
+        }
+        
+        @page {
+            size: A4;
+            margin: 1.5cm;
+        }
+        
+        h1 {
+            font-size: 16pt;
+            color: #000;
+            page-break-after: avoid;
+        }
+        
+        h2 {
+            font-size: 14pt;
+            color: #000;
+            background: none !important;
+            padding: 10px 0 5px 0;
+            page-break-after: avoid;
+        }
+        
+        h3 {
+            font-size: 12pt;
+            color: #000;
+            page-break-after: avoid;
+        }
+        
+        .toc {
+            background: #f5f5f5 !important;
+            color: #000 !important;
+            box-shadow: none;
+            border: 1px solid #ddd;
+        }
+        
+        .toc h2 {
+            color: #000 !important;
+        }
+        
+        .toc a {
+            color: #000 !important;
+        }
+        
+        pre {
+            background: #f5f5f5 !important;
+            color: #000 !important;
+            border: 1px solid #ddd;
+            box-shadow: none;
+        }
+        
+        code {
+            background: #f0f0f0 !important;
+            color: #000 !important;
+            border: 1px solid #ccc;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        .avoid-break {
+            page-break-inside: avoid;
+        }
+        
+        .keep-together {
+            page-break-inside: avoid;
+        }
+        
+        .print-button {
+            display: none !important;
+        }
+        
+        a {
+            color: #000 !important;
+            text-decoration: none;
+        }
+        
+        .answer {
+            background: #f8f8f8 !important;
+            border: 1px solid #ddd;
+        }
+    }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()" style="
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #4299e1;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+        z-index: 1000;
+    ">Print / Save as PDF</button>
+
+    <h1>Spring Security & Data</h1>
+    <h2>Interview Questions and Answers</h2>
+
+    <h2 id="spring-security">&#128274; Spring Security &amp; Data</h2>
+
+    <h3>1. What is Spring Security, and how does it work?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p>Spring Security is a powerful framework providing authentication, authorization, and protection against common attacks for Spring applications. It integrates seamlessly with Spring Boot and offers comprehensive security features.</p>
+            
+            <h4>Security Filter Chain Architecture</h4>
+            <pre><code>HTTP Request
+      |
+      v
++------------------------------------------------------------------+
+|                    SecurityFilterChain                           |
++------------------------------------------------------------------+
+|  +--------------------+                                          |
+|  | SecurityContext    | --&gt; Clears/restores security context    |
+|  | PersistenceFilter  |                                          |
+|  +--------------------+                                          |
+|           |                                                      |
+|  +--------------------+                                          |
+|  | HeaderWriter       | --&gt; Adds security headers (X-Frame, CSP)|
+|  | Filter             |                                          |
+|  +--------------------+                                          |
+|           |                                                      |
+|  +--------------------+                                          |
+|  | CsrfFilter         | --&gt; CSRF token validation               |
+|  +--------------------+                                          |
+|           |                                                      |
+|  +--------------------+                                          |
+|  | Authentication     | --&gt; Basic, Form, Bearer, OAuth2         |
+|  | Filter(s)          |                                          |
+|  +--------------------+                                          |
+|           |                                                      |
+|  +--------------------+                                          |
+|  | Authorization      | --&gt; URL-based access control            |
+|  | Filter             |                                          |
+|  +--------------------+                                          |
+|           |                                                      |
+|  +--------------------+                                          |
+|  | Exception          | --&gt; Handles 401/403 responses           |
+|  | Translation        |                                          |
+|  +--------------------+                                          |
++------------------------------------------------------------------+
+            |
+      Your Controller</code></pre>
+            
+            <h4>Core Components</h4>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background-color: #2d3748; color: white;">
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Component</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Purpose</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>SecurityFilterChain</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Defines security rules and filter ordering</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>AuthenticationManager</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Coordinates authentication providers</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>AuthenticationProvider</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Performs specific authentication logic</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>UserDetailsService</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Loads user data from database/LDAP/etc.</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>SecurityContext</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Holds current Authentication object (ThreadLocal)</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>PasswordEncoder</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Hashes and verifies passwords (BCrypt, Argon2)</td>
+                </tr>
+            </table>
+            
+            <h4>Basic Security Configuration (Spring Security 6.x)</h4>
+            <pre><code>@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+            .csrf(csrf -&gt; csrf.disable())  // Disable for REST APIs
+            .sessionManagement(session -&gt; 
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -&gt; auth
+                .requestMatchers("/public/**", "/auth/**").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/**").authenticated()
+                .anyRequest().authenticated()
+            )
+            .httpBasic(Customizer.withDefaults())
+            .build();
+    }
+    
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(12);
+    }
+}</code></pre>
+        </div>
+    </div>
+
+    <h3>2. How do Authentication and Authorization differ?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            
+            <h4>Authentication vs Authorization Comparison</h4>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background-color: #2d3748; color: white;">
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Aspect</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Authentication (AuthN)</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Authorization (AuthZ)</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>Question</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">"Who are you?"</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">"What can you do?"</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>Purpose</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Verify identity</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Control access to resources</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>When</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Happens first (login)</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Happens after authentication</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>Failure</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">401 Unauthorized</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">403 Forbidden</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>Example</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Login with username/password</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Admin can delete; User can only read</td>
+                </tr>
+            </table>
+            
+            <h4>Complete Security Configuration Example</h4>
+            <pre><code>@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity  // Enables @PreAuthorize, @PostAuthorize
+public class SecurityConfig {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+            .csrf(csrf -&gt; csrf.disable())
+            .authorizeHttpRequests(auth -&gt; auth
+                // Public endpoints
+                .requestMatchers("/public/**", "/health").permitAll()
+                // Role-based authorization
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/manager/**").hasAnyRole("ADMIN", "MANAGER")
+                // Authority-based authorization  
+                .requestMatchers(HttpMethod.DELETE, "/api/**").hasAuthority("DELETE_PRIVILEGE")
+                // All other requests require authentication
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -&gt; form
+                .loginPage("/login")
+                .defaultSuccessUrl("/dashboard")
+                .permitAll()
+            )
+            .logout(logout -&gt; logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout")
+                .deleteCookies("JSESSIONID")
+            )
+            .build();
+    }
+    
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails user = User.builder()
+            .username("user")
+            .password(passwordEncoder().encode("password"))
+            .roles("USER")
+            .build();
+        
+        UserDetails admin = User.builder()
+            .username("admin")
+            .password(passwordEncoder().encode("admin123"))
+            .roles("ADMIN", "USER")
+            .authorities("DELETE_PRIVILEGE", "ROLE_ADMIN", "ROLE_USER")
+            .build();
+        
+        return new InMemoryUserDetailsManager(user, admin);
+    }
+    
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
+
+// Method-level security
+@Service
+public class DocumentService {
+    
+    @PreAuthorize("hasRole('ADMIN')")
+    public void deleteDocument(Long id) { /* ... */ }
+    
+    @PreAuthorize("hasRole('USER') and #userId == authentication.principal.id")
+    public Document getDocument(Long userId, Long docId) { /* ... */ }
+    
+    @PostAuthorize("returnObject.owner == authentication.name")
+    public Document findDocument(Long id) { /* ... */ }
+}</code></pre>
+        </div>
+    </div>
+
+    <h3>3. Explain JWT and OAuth2 in Spring Security</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            
+            <h4>JWT vs OAuth2 Comparison</h4>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background-color: #2d3748; color: white;">
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Aspect</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">JWT</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">OAuth2</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>What is it?</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Token format (how tokens are structured)</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Authorization framework (how to obtain tokens)</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>Purpose</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Stateless authentication, carry claims</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Delegated authorization (third-party access)</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>Can be used alone?</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Yes, for simple auth</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Yes, tokens can be opaque or JWT</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>Use case</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Microservices, single-domain apps</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">"Login with Google/GitHub", API access</td>
+                </tr>
+            </table>
+            
+            <h4>JWT Structure</h4>
+            <pre><code>+------------------+-------------------+------------------+
+|      HEADER      |      PAYLOAD      |    SIGNATURE     |
++------------------+-------------------+------------------+
+| {                | {                 |                  |
+|   "alg": "HS256",|   "sub": "user1", | HMACSHA256(      |
+|   "typ": "JWT"   |   "roles": [...], |   base64(header)+|
+| }                |   "exp": 16899..  |   base64(payload)|
+|                  | }                 |   secret)        |
++------------------+-------------------+------------------+
+         |                  |                   |
+         v                  v                   v
+    Base64Url          Base64Url           Base64Url
+         \                  |                  /
+          \                 |                 /
+           -------&gt; xxxxx.yyyyy.zzzzz &lt;-------</code></pre>
+            
+            <h4>JWT Implementation</h4>
+            <pre><code>@Component
+public class JwtTokenProvider {
+    
+    @Value("${jwt.secret}")
+    private String secretKey;
+    
+    @Value("${jwt.expiration:3600000}")  // 1 hour default
+    private long validityInMs;
+    
+    private SecretKey key;
+    
+    @PostConstruct
+    protected void init() {
+        this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+    }
+    
+    public String createToken(String username, List&lt;String&gt; roles) {
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + validityInMs);
+        
+        return Jwts.builder()
+            .subject(username)
+            .claim("roles", roles)
+            .issuedAt(now)
+            .expiration(validity)
+            .signWith(key)
+            .compact();
+    }
+    
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser().verifyWith(key).build().parseSignedClaims(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
+        }
+    }
+    
+    public String getUsername(String token) {
+        return Jwts.parser().verifyWith(key).build()
+            .parseSignedClaims(token).getPayload().getSubject();
+    }
+}</code></pre>
+            
+            <h4>OAuth2 Authorization Code Flow</h4>
+            <pre><code>+--------+                               +---------------+
+|        |---(1) Authorization Request--&gt;|               |
+|        |                               | Authorization |
+|        |&lt;--(2) Authorization Code------|    Server     |
+|        |                               |   (Google)    |
+| Client |                               +---------------+
+|  App   |                               +---------------+
+|        |---(3) Code + Client Secret---&gt;|               |
+|        |                               |  Token        |
+|        |&lt;--(4) Access Token -----------|  Endpoint     |
+|        |                               +---------------+
+|        |                               +---------------+
+|        |---(5) Access Token -----------&gt;|  Resource    |
+|        |&lt;--(6) Protected Resource -----|  Server      |
++--------+                               +---------------+</code></pre>
+            
+            <h4>OAuth2 Client Configuration</h4>
+            <pre><code># application.yml
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope: openid, profile, email
+          github:
+            client-id: ${GITHUB_CLIENT_ID}
+            client-secret: ${GITHUB_CLIENT_SECRET}
+            scope: read:user, user:email</code></pre>
+            
+            <pre><code>@Configuration
+@EnableWebSecurity
+public class OAuth2SecurityConfig {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+            .authorizeHttpRequests(auth -&gt; auth
+                .requestMatchers("/", "/login").permitAll()
+                .anyRequest().authenticated()
+            )
+            .oauth2Login(oauth2 -&gt; oauth2
+                .loginPage("/login")
+                .defaultSuccessUrl("/dashboard")
+                .userInfoEndpoint(userInfo -&gt; userInfo
+                    .userService(customOAuth2UserService())
+                )
+            )
+            .build();
+    }
+}</code></pre>
+        </div>
+    </div>
+
+    <h3>4. How do you secure REST APIs in Spring Boot?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            
+            <h4>Security Layers for REST APIs</h4>
+            <pre><code>+-----------------------------------------------------------+
+|                    CLIENT REQUEST                         |
++-----------------------------------------------------------+
+                            |
+                            v
++-----------------------------------------------------------+
+| Layer 1: HTTPS/TLS                                        |
+| - Encrypt data in transit                                 |
+| - Certificate validation                                  |
++-----------------------------------------------------------+
+                            |
+                            v
++-----------------------------------------------------------+
+| Layer 2: Rate Limiting / DDoS Protection                  |
+| - Bucket4j, Resilience4j                                  |
+| - API Gateway (Kong, AWS API Gateway)                     |
++-----------------------------------------------------------+
+                            |
+                            v
++-----------------------------------------------------------+
+| Layer 3: Authentication                                   |
+| - JWT Token validation                                    |
+| - OAuth2 / API Keys                                       |
++-----------------------------------------------------------+
+                            |
+                            v
++-----------------------------------------------------------+
+| Layer 4: Authorization                                    |
+| - Role-based access control (RBAC)                        |
+| - Method-level security (@PreAuthorize)                   |
++-----------------------------------------------------------+
+                            |
+                            v
++-----------------------------------------------------------+
+| Layer 5: Input Validation                                 |
+| - @Valid, @Validated                                      |
+| - SQL Injection prevention (parameterized queries)        |
++-----------------------------------------------------------+
+                            |
+                            v
++-----------------------------------------------------------+
+|                    YOUR CONTROLLER                        |
++-----------------------------------------------------------+</code></pre>
+            
+            <h4>Complete REST API Security Configuration</h4>
+            <pre><code>@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
+public class RestApiSecurityConfig {
+    
+    private final JwtTokenProvider jwtTokenProvider;
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+            // Disable CSRF for stateless APIs
+            .csrf(csrf -&gt; csrf.disable())
+            
+            // Stateless session management
+            .sessionManagement(session -&gt; 
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            
+            // Exception handling
+            .exceptionHandling(ex -&gt; ex
+                .authenticationEntryPoint((req, res, e) -&gt; {
+                    res.setContentType("application/json");
+                    res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    res.getWriter().write("{\"error\": \"Unauthorized\"}");
+                })
+                .accessDeniedHandler((req, res, e) -&gt; {
+                    res.setContentType("application/json");
+                    res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    res.getWriter().write("{\"error\": \"Access Denied\"}");
+                })
+            )
+            
+            // Authorization rules
+            .authorizeHttpRequests(auth -&gt; auth
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/public/**").permitAll()
+                .requestMatchers("/actuator/health").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/products/**").hasRole("ADMIN")
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+            )
+            
+            // Add JWT filter before UsernamePasswordAuthenticationFilter
+            .addFilterBefore(
+                new JwtAuthenticationFilter(jwtTokenProvider),
+                UsernamePasswordAuthenticationFilter.class
+            )
+            
+            // Security headers
+            .headers(headers -&gt; headers
+                .contentSecurityPolicy(csp -&gt; 
+                    csp.policyDirectives("default-src 'self'"))
+                .frameOptions(frame -&gt; frame.deny())
+            )
+            
+            // CORS configuration
+            .cors(cors -&gt; cors.configurationSource(corsConfigurationSource()))
+            
+            .build();
+    }
+    
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("https://your-frontend.com"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        config.setExposedHeaders(List.of("X-Total-Count"));
+        config.setAllowCredentials(true);
+        config.setMaxAge(3600L);
+        
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/api/**", config);
+        return source;
+    }
+}</code></pre>
+            
+            <h4>JWT Authentication Filter</h4>
+            <pre><code>public class JwtAuthenticationFilter extends OncePerRequestFilter {
+    
+    private final JwtTokenProvider tokenProvider;
+    
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) 
+            throws ServletException, IOException {
+        
+        String token = resolveToken(request);
+        
+        if (token != null &amp;&amp; tokenProvider.validateToken(token)) {
+            Authentication auth = tokenProvider.getAuthentication(token);
+            SecurityContextHolder.getContext().setAuthentication(auth);
+        }
+        
+        filterChain.doFilter(request, response);
+    }
+    
+    private String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null &amp;&amp; bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
+}</code></pre>
+            
+            <h4>Best Practices</h4>
+            <ul>
+                <li>Always use HTTPS in production</li>
+                <li>Store secrets in environment variables or vault</li>
+                <li>Use short-lived access tokens with refresh tokens</li>
+                <li>Implement proper CORS for your frontend domain</li>
+                <li>Log authentication failures for security monitoring</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>5. What is CSRF, and how does Spring Security protect against it?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p><strong>CSRF (Cross-Site Request Forgery)</strong> is an attack that tricks authenticated users into performing unintended actions on a web application by exploiting the trust the site has in the user's browser.</p>
+            
+            <h4>CSRF Attack Flow</h4>
+            <pre><code>+-------------+          +-------------+          +-------------+
+|   Victim    |          |   Attacker  |          |   Bank.com  |
+|   Browser   |          |   Website   |          |   Server    |
++-------------+          +-------------+          +-------------+
+      |                        |                        |
+      |  1. User logs into Bank.com                     |
+      |------------------------------------------------&gt;|
+      |&lt;-- Session cookie set --------------------------+
+      |                        |                        |
+      |  2. User visits attacker's site                 |
+      |------------------&gt;|                             |
+      |                   |                             |
+      |  3. Hidden form auto-submits:                   |
+      |  &lt;form action="bank.com/transfer"&gt;              |
+      |     &lt;input name="to" value="attacker"&gt;          |
+      |     &lt;input name="amount" value="10000"&gt;         |
+      |  &lt;/form&gt;                                        |
+      |                   |                             |
+      |  4. Browser sends request WITH session cookie   |
+      |--------------------------------------------------&gt;|
+      |                        |                        |
+      |  5. Bank processes transfer (victim is logged in)|
+      |                        |                        |</code></pre>
+            
+            <h4>Spring Security CSRF Protection</h4>
+            <p>Spring Security generates a unique token per session that must be included in state-changing requests (POST, PUT, DELETE).</p>
+            
+            <pre><code>// CSRF token is automatically added to forms in Thymeleaf
+&lt;form th:action="@{/transfer}" method="post"&gt;
+    &lt;!-- Hidden field added automatically --&gt;
+    &lt;input type="hidden" name="_csrf" th:value="${_csrf.token}"/&gt;
+    ...
+&lt;/form&gt;
+
+// For AJAX requests (JavaScript)
+const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+
+fetch('/api/transfer', {
+    method: 'POST',
+    headers: {
+        [csrfHeader]: csrfToken,
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+});</code></pre>
+            
+            <h4>When to Enable/Disable CSRF</h4>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background-color: #2d3748; color: white;">
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Scenario</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">CSRF Protection</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Reason</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Traditional web app (server-rendered)</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px; color: green;"><strong>ENABLE</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Uses session cookies, vulnerable to CSRF</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Stateless REST API (JWT in header)</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px; color: orange;"><strong>DISABLE</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">No cookies = no CSRF vulnerability</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">SPA with cookie-based JWT</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px; color: green;"><strong>ENABLE</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Cookies are sent automatically</td>
+                </tr>
+            </table>
+            
+            <h4>CSRF Configuration Examples</h4>
+            <pre><code>@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    return http
+        // Option 1: Disable for stateless REST API
+        .csrf(csrf -&gt; csrf.disable())
+        
+        // Option 2: Enable with cookie-based token (for SPAs)
+        .csrf(csrf -&gt; csrf
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())
+        )
+        
+        // Option 3: Ignore specific endpoints
+        .csrf(csrf -&gt; csrf
+            .ignoringRequestMatchers("/api/webhooks/**", "/api/public/**")
+        )
+        .build();
+}</code></pre>
+        </div>
+    </div>
+
+    <h3>6. What is Spring Data JPA, and how does it simplify data access?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p><strong>Spring Data JPA</strong> is a library that significantly reduces boilerplate code for data access by providing repository abstractions over JPA/Hibernate. It enables developers to focus on business logic rather than data access implementation.</p>
+            
+            <h4>Architecture Overview</h4>
+            <pre><code>+-------------------+
+|   Your Service    |
++-------------------+
+         |
+         v
++-------------------+
+| Spring Data JPA   |
+|   Repository      |  &lt;-- You define interface only
++-------------------+
+         |
+         v
++-------------------+
+| JPA/Hibernate     |  &lt;-- Implementation auto-generated
++-------------------+
+         |
+         v
++-------------------+
+|    DataSource     |
+|   (Connection     |
+|      Pool)        |
++-------------------+
+         |
+         v
++-------------------+
+|    Database       |
++-------------------+</code></pre>
+            
+            <h4>Key Features</h4>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background-color: #2d3748; color: white;">
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Feature</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Description</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>Auto CRUD</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">save(), findById(), findAll(), delete() methods generated</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>Query Methods</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">findByName(), findByAgeGreaterThan() derived from method names</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>@Query</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Custom JPQL or native SQL queries</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>Pagination</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Built-in Pageable and Sort support</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>Auditing</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">@CreatedDate, @LastModifiedBy automatic tracking</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>Specifications</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Dynamic queries with type-safe criteria</td>
+                </tr>
+            </table>
+            
+            <h4>Entity Definition</h4>
+            <pre><code>@Entity
+@Table(name = "products")
+public class Product {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(nullable = false, length = 100)
+    private String name;
+    
+    @Column(precision = 10, scale = 2)
+    private BigDecimal price;
+    
+    @Enumerated(EnumType.STRING)
+    private Category category;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier;
+    
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List&lt;Review&gt; reviews = new ArrayList&lt;&gt;();
+    
+    @CreatedDate
+    private LocalDateTime createdAt;
+    
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+    
+    // Getters, setters, constructors
+}</code></pre>
+            
+            <h4>Repository Example</h4>
+            <pre><code>public interface ProductRepository extends JpaRepository&lt;Product, Long&gt; {
+    
+    // Derived query methods - Spring generates implementation
+    List&lt;Product&gt; findByCategory(Category category);
+    List&lt;Product&gt; findByPriceBetween(BigDecimal min, BigDecimal max);
+    Optional&lt;Product&gt; findByNameIgnoreCase(String name);
+    List&lt;Product&gt; findByNameContainingOrderByPriceDesc(String keyword);
+    
+    // Custom JPQL query
+    @Query("SELECT p FROM Product p WHERE p.price &gt; :minPrice AND p.category = :category")
+    List&lt;Product&gt; findExpensiveByCategory(@Param("minPrice") BigDecimal minPrice,
+                                          @Param("category") Category category);
+    
+    // Native SQL query
+    @Query(value = "SELECT * FROM products WHERE created_at &gt; :date", nativeQuery = true)
+    List&lt;Product&gt; findRecentProducts(@Param("date") LocalDateTime date);
+    
+    // Pagination support
+    Page&lt;Product&gt; findByCategory(Category category, Pageable pageable);
+    
+    // Modifying queries
+    @Modifying
+    @Query("UPDATE Product p SET p.price = p.price * :multiplier WHERE p.category = :category")
+    int updatePricesByCategory(@Param("multiplier") BigDecimal multiplier,
+                               @Param("category") Category category);
+}</code></pre>
+            
+            <h4>Service Usage</h4>
+            <pre><code>@Service
+@Transactional
+public class ProductService {
+    
+    private final ProductRepository productRepository;
+    
+    public Page&lt;Product&gt; getProducts(Category category, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("price").descending());
+        return productRepository.findByCategory(category, pageable);
+    }
+    
+    public Product createProduct(ProductDTO dto) {
+        Product product = new Product();
+        product.setName(dto.getName());
+        product.setPrice(dto.getPrice());
+        return productRepository.save(product);  // INSERT or UPDATE
+    }
+}</code></pre>
+        </div>
+    </div>
+
+    <h3>7. What are the different types of repository interfaces in Spring Data?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            
+            <h4>Repository Interface Hierarchy</h4>
+            <pre><code>                    +------------------+
+                    |    Repository    |  &lt;-- Marker interface
+                    +------------------+
+                            ^
+                            |
+                    +------------------+
+                    | CrudRepository   |  &lt;-- Basic CRUD operations
+                    +------------------+
+                            ^
+                            |
+               +------------+------------+
+               |                         |
+    +--------------------+    +------------------------+
+    | ListCrudRepository |    | PagingAndSorting       |
+    +--------------------+    | Repository              |  &lt;-- + Pagination
+                              +------------------------+
+                                        ^
+                                        |
+                              +------------------------+
+                              |    JpaRepository       |  &lt;-- + JPA specific
+                              +------------------------+</code></pre>
+            
+            <h4>Repository Types Comparison</h4>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background-color: #2d3748; color: white;">
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Interface</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Key Methods</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Use Case</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>Repository&lt;T, ID&gt;</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">None (marker)</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Define custom repositories from scratch</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>CrudRepository&lt;T, ID&gt;</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">save(), findById(), findAll(), delete(), count(), existsById()</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Basic CRUD without pagination</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>ListCrudRepository</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Same as Crud, returns List instead of Iterable</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">When you need List return types</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>PagingAndSortingRepository</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">findAll(Sort), findAll(Pageable)</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">When you need pagination/sorting</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>JpaRepository&lt;T, ID&gt;</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">flush(), saveAndFlush(), deleteInBatch(), getById()</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">JPA apps needing full features (recommended)</td>
+                </tr>
+            </table>
+            
+            <h4>Examples of Each Type</h4>
+            <pre><code>// 1. Basic marker - define only methods you need
+public interface BasicUserRepository extends Repository&lt;User, Long&gt; {
+    Optional&lt;User&gt; findById(Long id);
+    User save(User user);
+}
+
+// 2. CrudRepository - standard CRUD
+public interface UserCrudRepository extends CrudRepository&lt;User, Long&gt; {
+    // Inherits: save, findById, findAll (Iterable), delete, count, existsById
+}
+
+// 3. PagingAndSorting - adds pagination
+public interface UserPagingRepository extends PagingAndSortingRepository&lt;User, Long&gt; {
+    // Additional: findAll(Sort), findAll(Pageable)
+}
+
+// 4. JpaRepository - full JPA features (most common choice)
+public interface UserRepository extends JpaRepository&lt;User, Long&gt; {
+    // Inherits all above PLUS:
+    // - flush(), saveAndFlush()
+    // - deleteAllInBatch(), deleteAllByIdInBatch()
+    // - getReferenceById() (lazy proxy)
+    // - findAll() returns List, not Iterable
+    
+    // Custom derived queries
+    List&lt;User&gt; findByEmailContaining(String email);
+    
+    // With pagination
+    Page&lt;User&gt; findByStatus(UserStatus status, Pageable pageable);
+}</code></pre>
+            
+            <h4>When to Use Which</h4>
+            <ul>
+                <li><strong>JpaRepository:</strong> Default choice for 95% of use cases - full feature set</li>
+                <li><strong>CrudRepository:</strong> Non-JPA stores (MongoDB, Redis) or minimal exposure</li>
+                <li><strong>Repository:</strong> Maximum control - expose only specific methods</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>8. How do you implement caching in Spring Boot?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p>Spring Boot provides a cache abstraction that works with various cache providers (Caffeine, Redis, Ehcache) through simple annotations.</p>
+            
+            <h4>Cache Flow</h4>
+            <pre><code>           +------------------+
+           |   Method Call    |
+           +------------------+
+                    |
+                    v
+           +------------------+
+           |  @Cacheable?     |
+           +------------------+
+                    |
+          +---------+---------+
+          |                   |
+          v                   v
+   +------------+      +-------------+
+   | Cache HIT  |      | Cache MISS  |
+   +------------+      +-------------+
+          |                   |
+          v                   v
+   Return cached      Execute method
+   value                     |
+                             v
+                      Store in cache
+                             |
+                             v
+                      Return result</code></pre>
+            
+            <h4>Cache Annotations</h4>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background-color: #2d3748; color: white;">
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Annotation</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Purpose</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>@Cacheable</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Cache result; skip execution on cache hit</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>@CachePut</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Always execute method, update cache with result</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>@CacheEvict</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Remove entries from cache</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>@Caching</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Combine multiple cache operations</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>@CacheConfig</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Class-level cache defaults</td>
+                </tr>
+            </table>
+            
+            <h4>Setup with Caffeine (In-Memory)</h4>
+            <pre><code>// build.gradle
+implementation 'org.springframework.boot:spring-boot-starter-cache'
+implementation 'com.github.ben-manes.caffeine:caffeine'
+
+// application.yml
+spring:
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=1000,expireAfterWrite=10m</code></pre>
+            
+            <pre><code>@Configuration
+@EnableCaching
+public class CacheConfig {
+    
+    @Bean
+    public CacheManager cacheManager() {
+        CaffeineCacheManager manager = new CaffeineCacheManager();
+        manager.setCaffeine(Caffeine.newBuilder()
+            .maximumSize(1000)
+            .expireAfterWrite(Duration.ofMinutes(10))
+            .recordStats());  // Enable statistics
+        return manager;
+    }
+}</code></pre>
+            
+            <h4>Service Implementation</h4>
+            <pre><code>@Service
+@CacheConfig(cacheNames = "products")  // Default cache name for class
+public class ProductService {
+    
+    private final ProductRepository repository;
+    
+    // Cache by ID - returns cached value if exists
+    @Cacheable(key = "#id")
+    public Product findById(Long id) {
+        log.info("Fetching from database: {}", id);  // Only logs on cache miss
+        return repository.findById(id)
+            .orElseThrow(() -&gt; new NotFoundException("Product not found"));
+    }
+    
+    // Conditional caching - only cache if price &gt; 100
+    @Cacheable(key = "#id", condition = "#result.price &gt; 100")
+    public Product findExpensiveById(Long id) {
+        return repository.findById(id).orElseThrow();
+    }
+    
+    // Update cache after modification
+    @CachePut(key = "#product.id")
+    public Product update(Product product) {
+        return repository.save(product);
+    }
+    
+    // Remove from cache when deleted
+    @CacheEvict(key = "#id")
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
+    
+    // Clear entire cache
+    @CacheEvict(allEntries = true)
+    public void clearCache() {
+        log.info("Product cache cleared");
+    }
+    
+    // Multiple cache operations
+    @Caching(
+        put = @CachePut(key = "#product.id"),
+        evict = @CacheEvict(cacheNames = "productList", allEntries = true)
+    )
+    public Product save(Product product) {
+        return repository.save(product);
+    }
+}</code></pre>
+            
+            <h4>Redis Configuration (Distributed Cache)</h4>
+            <pre><code>// build.gradle
+implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+// application.yml
+spring:
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
+    password: ${REDIS_PASSWORD:}
+    
+// Custom Redis cache configuration
+@Configuration
+@EnableCaching
+public class RedisCacheConfig {
+    
+    @Bean
+    public RedisCacheManager cacheManager(RedisConnectionFactory factory) {
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
+            .entryTtl(Duration.ofMinutes(30))
+            .serializeKeysWith(RedisSerializationContext.SerializationPair
+                .fromSerializer(new StringRedisSerializer()))
+            .serializeValuesWith(RedisSerializationContext.SerializationPair
+                .fromSerializer(new GenericJackson2JsonRedisSerializer()))
+            .disableCachingNullValues();
+        
+        return RedisCacheManager.builder(factory)
+            .cacheDefaults(config)
+            .withCacheConfiguration("products", 
+                config.entryTtl(Duration.ofHours(1)))
+            .withCacheConfiguration("users", 
+                config.entryTtl(Duration.ofMinutes(15)))
+            .build();
+    }
+}</code></pre>
+        </div>
+    </div>
+
+    <h3>9. Explain transaction management in Spring</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            <p>Spring provides declarative transaction management via <code>@Transactional</code>, abstracting the complexity of managing transactions across different data sources.</p>
+            
+            <h4>Transaction Flow</h4>
+            <pre><code>@Transactional method called
+           |
+           v
++----------------------+
+| TransactionManager   |
+| begins transaction   |
++----------------------+
+           |
+           v
++----------------------+
+| Execute method body  |
+|   - DB operations    |
+|   - Business logic   |
++----------------------+
+           |
+    +------+------+
+    |             |
+    v             v
+SUCCESS        EXCEPTION
+    |             |
+    v             v
++--------+   +-----------+
+| COMMIT |   | ROLLBACK  |
++--------+   +-----------+</code></pre>
+            
+            <h4>Transaction Propagation Types</h4>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background-color: #2d3748; color: white;">
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Propagation</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Behavior</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>REQUIRED</code> (default)</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Join existing TX, or create new if none exists</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>REQUIRES_NEW</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Always create new TX, suspend existing</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>MANDATORY</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Must run within existing TX, throw exception if none</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>SUPPORTS</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Use TX if exists, run non-transactional if not</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>NOT_SUPPORTED</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Suspend existing TX, run non-transactional</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>NEVER</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Throw exception if TX exists</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><code>NESTED</code></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Create savepoint within existing TX</td>
+                </tr>
+            </table>
+            
+            <h4>Isolation Levels</h4>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background-color: #2d3748; color: white;">
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Isolation</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Dirty Read</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Non-Repeatable</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Phantom</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">READ_UNCOMMITTED</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Possible</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Possible</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Possible</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;">READ_COMMITTED</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Prevented</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Possible</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Possible</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">REPEATABLE_READ</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Prevented</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Prevented</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Possible</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;">SERIALIZABLE</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Prevented</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Prevented</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Prevented</td>
+                </tr>
+            </table>
+            
+            <h4>@Transactional Examples</h4>
+            <pre><code>@Service
+public class OrderService {
+    
+    private final OrderRepository orderRepository;
+    private final PaymentService paymentService;
+    private final NotificationService notificationService;
+    
+    // Basic transaction - rollback on any RuntimeException
+    @Transactional
+    public Order createOrder(OrderRequest request) {
+        Order order = new Order(request);
+        order = orderRepository.save(order);
+        paymentService.processPayment(order);  // Same transaction
+        return order;
+    }
+    
+    // Custom rollback rules
+    @Transactional(
+        rollbackFor = Exception.class,           // Rollback on checked exceptions
+        noRollbackFor = NotificationException.class  // Don't rollback for this
+    )
+    public Order createOrderWithNotification(OrderRequest request) {
+        Order order = orderRepository.save(new Order(request));
+        notificationService.sendConfirmation(order);  // May throw NotificationException
+        return order;
+    }
+    
+    // Read-only transaction (optimization hint)
+    @Transactional(readOnly = true)
+    public List&lt;Order&gt; findAllOrders() {
+        return orderRepository.findAll();
+    }
+    
+    // Separate transaction for audit logging
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void logAudit(String action, Long orderId) {
+        // This commits independently, even if outer TX rolls back
+        auditRepository.save(new AuditLog(action, orderId));
+    }
+    
+    // Timeout handling
+    @Transactional(timeout = 30)  // 30 seconds
+    public void processLargeOrder(OrderRequest request) {
+        // Long-running operation
+    }
+}</code></pre>
+            
+            <h4>Common Pitfalls</h4>
+            <ul>
+                <li><strong>Self-invocation:</strong> Calling @Transactional method from same class bypasses proxy</li>
+                <li><strong>Checked exceptions:</strong> By default, only RuntimeException triggers rollback</li>
+                <li><strong>Private methods:</strong> @Transactional doesn't work on private methods</li>
+                <li><strong>Final classes/methods:</strong> Cannot be proxied (use interface or CGLIB)</li>
+            </ul>
+            
+            <pre><code>// WRONG - self-invocation bypasses @Transactional
+@Service
+public class OrderService {
+    public void process() {
+        createOrder();  // @Transactional NOT applied!
+    }
+    
+    @Transactional
+    public void createOrder() { ... }
+}
+
+// CORRECT - inject self or use separate service
+@Service
+public class OrderService {
+    @Autowired
+    private OrderService self;  // Inject proxy
+    
+    public void process() {
+        self.createOrder();  // Goes through proxy
+    }
+}</code></pre>
+        </div>
+    </div>
+
+    <h3>10. What is the difference between Lazy and Eager loading in JPA?</h3>
+    <div class="question-block">
+        <div class="answer">
+            <strong>Answer:</strong><br><br>
+            
+            <h4>Loading Strategies Comparison</h4>
+            <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr style="background-color: #2d3748; color: white;">
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">Aspect</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">LAZY</th>
+                    <th style="border: 1px solid #4a5568; padding: 8px; text-align: left;">EAGER</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>When loaded</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">On first access</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Immediately with parent</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>Initial query</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Lighter (parent only)</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Heavier (with JOINs)</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>N+1 risk</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Yes, if accessed in loop</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">No (loaded upfront)</td>
+                </tr>
+                <tr style="background-color: #edf2f7;">
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>Memory usage</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Lower initially</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">Higher (all data loaded)</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #4a5568; padding: 8px;"><strong>Default for</strong></td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">@OneToMany, @ManyToMany</td>
+                    <td style="border: 1px solid #4a5568; padding: 8px;">@ManyToOne, @OneToOne</td>
+                </tr>
+            </table>
+            
+            <h4>Visual Comparison</h4>
+            <pre><code>LAZY Loading:
+                                                      
+  findById(1)          Access orders              Additional Query
+       |                    |                           |
+       v                    v                           v
++------------+      +----------------+         +----------------+
+| SELECT     |      | user.getOrders(|  ----&gt; | SELECT * FROM  |
+| * FROM     |      |                |         | orders WHERE   |
+| users      |      +----------------+         | user_id = 1    |
+| WHERE id=1 |                                 +----------------+
++------------+
+
+
+EAGER Loading:
+
+  findById(1)
+       |
+       v
++-------------------------------------------+
+| SELECT u.*, o.*                           |
+| FROM users u                              |
+| LEFT JOIN orders o ON u.id = o.user_id    |
+| WHERE u.id = 1                            |
++-------------------------------------------+
+       |
+       v
+  All data loaded immediately</code></pre>
+            
+            <h4>Entity Configuration</h4>
+            <pre><code>@Entity
+public class User {
+    @Id
+    private Long id;
+    
+    private String name;
+    
+    // LAZY: Orders loaded only when accessed
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List&lt;Order&gt; orders;
+    
+    // EAGER: Profile always loaded with user
+    @OneToOne(fetch = FetchType.EAGER)
+    private UserProfile profile;
+}
+
+@Entity  
+public class Order {
+    @Id
+    private Long id;
+    
+    // EAGER (default for @ManyToOne): User loaded with order
+    @ManyToOne(fetch = FetchType.LAZY)  // Override to LAZY
+    private User user;
+}</code></pre>
+            
+            <h4>N+1 Problem and Solutions</h4>
+            <pre><code>// N+1 PROBLEM - 1 query for users + N queries for orders
+List&lt;User&gt; users = userRepository.findAll();  // 1 query
+for (User user : users) {
+    user.getOrders().size();  // N additional queries!
+}
+
+// SOLUTION 1: JOIN FETCH in JPQL
+@Query("SELECT u FROM User u JOIN FETCH u.orders")
+List&lt;User&gt; findAllWithOrders();
+
+// SOLUTION 2: @EntityGraph
+@EntityGraph(attributePaths = {"orders", "orders.items"})
+List&lt;User&gt; findAll();
+
+// SOLUTION 3: @BatchSize (fetch in batches)
+@OneToMany(mappedBy = "user")
+@BatchSize(size = 20)  // Load orders for 20 users at once
+private List&lt;Order&gt; orders;
+
+// SOLUTION 4: DTO projection (best for read-only)
+@Query("SELECT new com.example.UserOrderDTO(u.name, COUNT(o)) " +
+       "FROM User u LEFT JOIN u.orders o GROUP BY u.id")
+List&lt;UserOrderDTO&gt; findUserOrderCounts();</code></pre>
+            
+            <h4>Best Practices</h4>
+            <ul>
+                <li>Default to LAZY for collections (@OneToMany, @ManyToMany)</li>
+                <li>Consider LAZY for @ManyToOne if parent not always needed</li>
+                <li>Use JOIN FETCH or @EntityGraph when you need related data</li>
+                <li>Use DTO projections for read-only queries</li>
+                <li>Enable SQL logging in dev to detect N+1 issues</li>
+            </ul>
+            
+            <pre><code># Detect N+1 in development
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+logging:
+  level:
+    org.hibernate.stat: DEBUG
+    org.hibernate.SQL: DEBUG</code></pre>
+        </div>
+    </div>
+
+
+    <div class="page-break"></div>
+
+    <hr>
+    <p style="text-align: center; color: #666; font-style: italic; margin-top: 40px;">
+        <em>Spring Security & Data and Answers</em>
+    </p>
+</body>
+</html>
