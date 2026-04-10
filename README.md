@@ -1,6 +1,6 @@
 # Java Preparation Guide
 
-A structured collection of Q&As covering core Java, Spring ecosystem, messaging, and reactive programming — from fundamentals to advanced topics.
+A structured collection of Q&As covering core Java, Spring ecosystem, messaging, reactive programming, and SQL — from fundamentals to advanced topics.
 
 ---
 
@@ -15,6 +15,10 @@ A structured collection of Q&As covering core Java, Spring ecosystem, messaging,
 | 5 | [Apache Kafka](5.%20Apache-Kafka.md) | Producers, Consumers, Topics, Partitions, Consumer Groups, Streams, Error Handling |
 | 6 | [Spring Security](6.%20Spring-Security.md) | Authentication, Authorization, JWT, OAuth2, CSRF, Cookies, Security Patterns |
 | 7 | [Spring WebFlux](7.%20Spring%20WebFlux.md) | Reactive Streams, Mono/Flux, Back-pressure, WebClient, R2DBC, Testing |
+| 8 | [Rabbit MQ](8.%20Rabbit-MQ.md) | Exchanges, Queues, Bindings, Routing, Dead Letter, Spring AMQP |
+| 9 | [Apache Kafka](9.%20Active-MQ.md) | Brokers, Destinations, Message Selectors, Spring JMS, Persistence |
+| 10 | [SQL](10.%20SQL.md) | DDL/DML/DCL/TCL, Joins, Indexes, Aggregates, Subqueries, Window Functions, Normalization, Transactions, Views, Constraints |
+| 11 | [SQL Advanced](11.%20SQL-ADVANCE.md) | CTEs, Recursive Queries, Execution Plans, Partitioning, Materialized Views, Locks, Isolation Levels, Sharding, Anti-Patterns |
 | — | [Java Versions](Java-Versions.md) | Key features per Java release (Java 8 → Java 21+) |
 
 ---
@@ -91,6 +95,42 @@ Reactive, non-blocking web programming:
 - Reactive database access — R2DBC, Spring Data Reactive repositories
 - Testing with `WebTestClient`
 
+### SQL — Core
+Relational database essentials:
+- SQL command categories — DDL, DML, DCL, TCL
+- `DELETE` vs `TRUNCATE` vs `DROP`
+- All JOIN types — INNER, LEFT, RIGHT, FULL OUTER, CROSS, SELF
+- `WHERE` vs `HAVING` — filtering rows vs. groups
+- Primary Key, Foreign Key, and Unique Key
+- Indexes — Clustered, Non-Clustered, Composite, Unique
+- Aggregate functions — `COUNT`, `SUM`, `AVG`, `MIN`, `MAX`
+- Subqueries — single-row, multi-row, correlated, derived tables
+- Window functions — `ROW_NUMBER`, `RANK`, `DENSE_RANK`, `LAG`, `LEAD`
+- Normalization — 1NF, 2NF, 3NF with examples
+- Transactions and ACID properties
+- Views — creation, updatable views, limitations
+- `UNION` vs `UNION ALL`
+- Stored Procedures vs. Functions
+- Constraints — `NOT NULL`, `UNIQUE`, `CHECK`, `DEFAULT`, `FOREIGN KEY`
+
+### SQL — Advanced
+Performance, architecture, and production patterns:
+- CTEs and Recursive CTEs — hierarchical data traversal (org charts, trees)
+- Advanced window functions — frame clauses, rolling averages, `FIRST_VALUE`, `NTH_VALUE`
+- Advanced JOINs — LATERAL, Anti-Join, Semi-Join, Non-Equi JOIN
+- SQL logical execution order and query optimization
+- Reading `EXPLAIN`/`EXPLAIN ANALYZE` output — plan nodes, cost metrics
+- Database partitioning — Range, List, Hash partitioning with partition pruning
+- Materialized Views — storage, refresh strategies, indexes on views
+- Locks and Deadlocks — lock types, deadlock scenarios, `SKIP LOCKED`, prevention
+- Isolation levels and concurrency anomalies — dirty reads, phantom reads, lost updates
+- OLTP vs OLAP schema design — Star Schema, Fact and Dimension tables
+- `GROUPING SETS`, `ROLLUP`, `CUBE` — multi-level aggregations
+- Efficient pagination — OFFSET pitfalls, Keyset/Cursor pagination
+- Triggers — BEFORE/AFTER/INSTEAD OF, audit log, validation triggers
+- Sharding vs Replication — shard key strategies, tradeoffs
+- SQL anti-patterns — SELECT *, implicit casts, correlated subqueries, NOT IN with NULLs
+
 ### Java Versions
 Key language and JVM improvements per release:
 - **Java 8** — Lambdas, Streams, `Optional`, default methods, Date/Time API
@@ -109,7 +149,9 @@ Key language and JVM improvements per release:
 4. Cover **Spring Data** for persistence knowledge.
 5. Study **Spring Security** and **Spring WebFlux** for modern Spring patterns.
 6. Review **Apache Kafka** for distributed systems and messaging.
-7. Use **Java Versions** as a quick reference for feature timelines.
+7. Study **SQL** for relational database fundamentals and interview essentials.
+8. Study **SQL Advanced** for performance, architecture, and production-grade patterns.
+9. Use **Java Versions** as a quick reference for feature timelines.
 
 ---
 
